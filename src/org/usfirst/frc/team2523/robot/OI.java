@@ -20,15 +20,15 @@ public class OI
 {  
     // create required buttons
     // Button button = new JoystickButton(stick, buttonNumber);
-    Button triggerButton = new JoystickButton(RobotMap.stick, 1);
-    Button thumbButton = new JoystickButton(RobotMap.stick, 2);
-    Button topLeftButton = new JoystickButton(RobotMap.stick, 5);
-    Button bottomLeftButton = new JoystickButton(RobotMap.stick, 3);
-    Button topRightButton = new JoystickButton(RobotMap.stick, 6);
-    Button bottomRightButton = new JoystickButton(RobotMap.stick, 4);
-    Button bottomButton7 = new JoystickButton(RobotMap.stick, 7);
-    Button bottomButton11 = new JoystickButton(RobotMap.stick, 11);
-    Button bottomButton12 = new JoystickButton(RobotMap.stick, 12);
+    Button triggerButton = new JoystickButton(RobotMap.primaryStick, 1);
+    Button thumbButton = new JoystickButton(RobotMap.primaryStick, 2);
+    Button topLeftButton = new JoystickButton(RobotMap.primaryStick, 5);
+    Button bottomLeftButton = new JoystickButton(RobotMap.primaryStick, 3);
+    Button topRightButton = new JoystickButton(RobotMap.primaryStick, 6);
+    Button bottomRightButton = new JoystickButton(RobotMap.primaryStick, 4);
+    Button bottomButton7 = new JoystickButton(RobotMap.primaryStick, 7);
+    Button bottomButton11 = new JoystickButton(RobotMap.primaryStick, 11);
+    Button bottomButton12 = new JoystickButton(RobotMap.primaryStick, 12);
     
     // There are a few additional built in buttons you can use. Additionally,
     // by subclassing Button you can create custom triggers and bind those to

@@ -18,8 +18,8 @@ public class SetLiftTarget extends Command
 	public double target;
 	
 	/**
-	 * Constructor to instruct the lift to travel at MAX_SPEED to target, the relative height of the lift
-	 * @param target The targeted percentage of lift height. Between 0.0 and 100.0
+	 * Constructor to instruct the lift to travel at MAX_SPEED to target, the height of the lift
+	 * @param target The targeted actual lift height in inches
 	 */
     public SetLiftTarget(double target) 
     {
@@ -34,8 +34,24 @@ public class SetLiftTarget extends Command
     }
     
 	/**
-	 * Constructor to instruct the lift to travel at a certain speed to target, the relative height of the lift
-	 * @param target The targeted percentage of lift height. Between 0.0 and 100.0
+	 * Constructor to instruct the lift to travel at MAX_SPEED to target, the tote position
+	 * @param target The targeted tote position (between 1 and 6)
+	 */
+    public SetLiftTarget(int target) 
+    {
+        // Use requires() here to declare subsystem dependencies
+        requires(Robot.lift);
+        
+        // apply target to the lift (convert tote height to inches and add some clearance)
+        this.target = target * RobotMap.TOTE_INCREMENT_HEIGHT + RobotMap.TOTE_TOP_CLEARANCE;
+        
+        // set speed
+        this.speed = RobotMap.MAX_LIFT_SPEED;
+    }
+    
+	/**
+	 * Constructor to instruct the lift to travel at a certain speed to target, the height of the lift
+	 * @param target The targeted lift height in inches
 	 * @param speed Max speed to move the lift at. Between 0.0 and 1.0
 	 */
     public SetLiftTarget(double target, double speed) 
@@ -44,11 +60,29 @@ public class SetLiftTarget extends Command
         requires(Robot.lift);
         
         // apply target to the lift
-        this.target = target; //Robot.lift.setTarget(target);
+        this.target = target;
         
         // set speed
         this.speed = speed;
     }
+    
+	/**
+	 * Constructor to instruct the lift to travel at a certain speed to target, the relative height of the lift
+	 * @param target The targeted tote position (between 1 and 6)
+	 * @param speed Max speed to move the lift at. Between 0.0 and 1.0
+	 */
+    public SetLiftTarget(int target, double speed) 
+    {
+        // Use requires() here to declare subsystem dependencies
+        requires(Robot.lift);
+        
+        // apply target to the lift (convert tote height to inches and add some clearance)
+        this.target = target * RobotMap.TOTE_INCREMENT_HEIGHT + RobotMap.TOTE_TOP_CLEARANCE;
+        
+        // set speed
+        this.speed = speed;
+    }
+    
     
     // Called just before this Command runs the first time
     protected void initialize() 
@@ -59,12 +93,8 @@ public class SetLiftTarget extends Command
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
-    {
-		// ensure target is within bounds
-//		if (Robot.lift.target > 100.0) Robot.lift.target = 100.0;
-//		else if (Robot.lift.target < 0.0) Robot.lift.target = 0.0;
-    	
-		if (this.target > 100.0) this.target = 100.0;
+    {   	
+		if (this.target > RobotMap.MAX_LIFT_HEIGHT) this.target = RobotMap.MAX_LIFT_HEIGHT;
 		else if (this.target < 0.0) this.target = 0.0;
     	
 		// set the speed of the lift motor according to the value calculated by the PID control class, inputting the encoder distance as current

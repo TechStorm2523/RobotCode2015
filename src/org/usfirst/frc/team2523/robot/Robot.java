@@ -21,6 +21,7 @@ import org.usfirst.frc.team2523.robot.subsystems.Camera;
 import org.usfirst.frc.team2523.robot.subsystems.Chassis;
 import org.usfirst.frc.team2523.robot.subsystems.Claw;
 import org.usfirst.frc.team2523.robot.subsystems.Dashboard;
+import org.usfirst.frc.team2523.robot.subsystems.FeederWheels;
 import org.usfirst.frc.team2523.robot.subsystems.Lift;
 import org.usfirst.frc.team2523.robot.subsystems.MainAccelerometer;
 import org.usfirst.frc.team2523.robot.subsystems.MotorSafetySystem;
@@ -43,6 +44,7 @@ public class Robot extends IterativeRobot
 	public static Dashboard dashboard;
 	public static MotorSafetySystem driveMotorSafety;
 	public static MainAccelerometer accelerometer;
+	public static FeederWheels feederWheels;
 	
 	// instantiate operator interface
 	public static OI oi;
@@ -65,6 +67,7 @@ public class Robot extends IterativeRobot
     	dashboard = new Dashboard();
 		oi = new OI();
 		accelerometer = new MainAccelerometer();
+		feederWheels = new FeederWheels();
 		//driveMotorSafety = new MotorSafetySystem(0.1);
 				//RobotMap.frontLeftMotor, RobotMap.rearLeftMotor, RobotMap.frontLeftMotor, RobotMap.rearRightMotor); // set timeout to be 0.1 seconds
 		
@@ -80,6 +83,9 @@ public class Robot extends IterativeRobot
         // ensure robot will stop motors if they do not receive commands for 0.1 seconds
         RobotMap.robotDrive.setSafetyEnabled(true);
     	RobotMap.robotDrive.setExpiration(0.1);
+    	
+    	// SET PREFERENCES POSSIBLY http://wpilib.screenstepslive.com/s/3120/m/7932/l/81114-setting-robot-preferences-from-smartdashboard
+    	//prefs.getDouble("Max Lift Speed", 0.6);
     	
     	// reset gyro (because it takes a while)
     	//chassis.resetGyro();

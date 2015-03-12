@@ -39,86 +39,58 @@ public class Chassis extends Subsystem
 //    double oldEncoderValues[] = new double[4]; // could use getDistance for these values and set each encoder's distance per tick such that getDistance is RPMs, or just use ticks as units
 //    double oldMotorOutputs[] = new double[4];
 //    double motorCompensations[] = new double[4];
-//
-//	/**
-//	 * Sets the wheel speeds for mecanum drive based of x, y, and rotation inputs. Also compensates each motor to achive expected RPM performance
-//	 * @param x Speed in y direction. From -1.0 to 1.0
-//	 * @param y Speed in x direction. From -1.0 to 1.0
-//	 * @param rotation Speed of rotation. From -1.0 to 1.0 (positive is clockwise)
-//	 */
-//	public void setMecanumDrive(double x, double y, double rotation) 
-//	{
-//		// get encoder speeds (in ticks per iteration interval)
-//		double encoderSpeeds[] = new double[4];
-//        encoderSpeeds[RobotMap.frontLeftMotor] = oldEncoderValues[RobotMap.frontLeftMotor] - RobotMap.frontLeftEncoder.get();
-//        encoderSpeeds[RobotMap.frontRightMotor] = oldEncoderValues[RobotMap.frontRightMotor] - RobotMap.frontRightEncoder.get();
-//        encoderSpeeds[RobotMap.rearLeftMotor] = oldEncoderValues[RobotMap.rearLeftMotor] - RobotMap.rearLeftEncoder.get();
-//        encoderSpeeds[RobotMap.rearRightMotor] = oldEncoderValues[RobotMap.rearRightMotor] - RobotMap.rearRightEncoder.get();
-//		
-//        // set each motor's compensation (local) based off MOST RECENT measurements
-//        double motorCompensations[] = new double[4];        
-//        motorCompensations[RobotMap.frontLeftMotor] = (oldMotorOutputs[RobotMap.frontLeftMotor] * this.MOTOR_TO_RPM_FACTOR) / encoderSpeeds[RobotMap.frontLeftMotor];
-//        motorCompensations[RobotMap.frontRightMotor] = (oldMotorOutputs[RobotMap.frontRightMotor] * this.MOTOR_TO_RPM_FACTOR) / encoderSpeeds[RobotMap.frontRightMotor];
-//        motorCompensations[RobotMap.rearLeftMotor] = (oldMotorOutputs[RobotMap.rearLeftMotor] * this.MOTOR_TO_RPM_FACTOR) / encoderSpeeds[RobotMap.rearLeftMotor];
-//        motorCompensations[RobotMap.rearRightMotor] = (oldMotorOutputs[RobotMap.rearRightMotor] * this.MOTOR_TO_RPM_FACTOR) / encoderSpeeds[RobotMap.rearRightMotor];
-//        
-//        // then set the actual (global) compensation value only if compensation is needed (if the compensation factor is ~ greater than 1)
-//        if (Math.abs(motorCompensations[RobotMap.frontLeftMotor] - 1) > this.MOTOR_COMPENSATION_THRESHOLD) 
-//        	this.motorCompensations[RobotMap.frontLeftMotor] = motorCompensations[RobotMap.frontLeftMotor];
-//        if (Math.abs(motorCompensations[RobotMap.frontRightMotor] - 1) > this.MOTOR_COMPENSATION_THRESHOLD)
-//        	this.motorCompensations[RobotMap.frontRightMotor] = motorCompensations[RobotMap.frontRightMotor];
-//        if (Math.abs(motorCompensations[RobotMap.rearLeftMotor] - 1) > this.MOTOR_COMPENSATION_THRESHOLD)
-//        	this.motorCompensations[RobotMap.rearLeftMotor] = motorCompensations[RobotMap.rearLeftMotor];
-//        if (Math.abs(motorCompensations[RobotMap.rearRightMotor] - 1) > this.MOTOR_COMPENSATION_THRESHOLD)
-//        	this.motorCompensations[RobotMap.rearRightMotor] = motorCompensations[RobotMap.rearRightMotor];
-//        
-//        // determine wheel speeds for mecanums 
-//        double wheelSpeeds[] = new double[4];
-//        wheelSpeeds[RobotMap.frontLeftMotor] = x + y + rotation;
-//        wheelSpeeds[RobotMap.frontRightMotor] = -x + y - rotation;
-//        wheelSpeeds[RobotMap.rearLeftMotor] = -x + y + rotation;
-//        wheelSpeeds[RobotMap.rearRightMotor] = x + y - rotation;
-//        
-//        // set previous motor settings to these motor settings (DONT apply compensation to these, so we can see what the actual compensation from the theoretical output is)
-//        oldMotorOutputs[RobotMap.frontLeftMotor] = wheelSpeeds[RobotMap.frontLeftMotor];
-//        oldMotorOutputs[RobotMap.frontRightMotor] = wheelSpeeds[RobotMap.frontRightMotor];
-//        oldMotorOutputs[RobotMap.rearLeftMotor] = wheelSpeeds[RobotMap.rearLeftMotor];
-//        oldMotorOutputs[RobotMap.rearRightMotor] = wheelSpeeds[RobotMap.rearRightMotor];
-//        
-//        // compensate motor output based on GLOBAL compensations
-//        wheelSpeeds[RobotMap.frontLeftMotor] *= this.motorCompensations[RobotMap.frontLeftMotor];
-//        wheelSpeeds[RobotMap.frontRightMotor] *= this.motorCompensations[RobotMap.frontRightMotor];
-//        wheelSpeeds[RobotMap.rearLeftMotor] *= this.motorCompensations[RobotMap.rearLeftMotor];
-//        wheelSpeeds[RobotMap.rearRightMotor] *= this.motorCompensations[RobotMap.rearRightMotor];
-//        
-//        // normalize outputs
-//        normalize(wheelSpeeds);
-//        
-//        // set motor outputs
-//        //RobotMap.frontLeftController.set();
-//       
-//        
-//        // set previous encoder distance to current distance
-//        oldEncoderValues[RobotMap.frontLeftMotor] = RobotMap.frontLeftEncoder.get();
-//        oldEncoderValues[RobotMap.frontRightMotor] = RobotMap.frontRightEncoder.get();
-//        oldEncoderValues[RobotMap.rearLeftMotor] = RobotMap.rearLeftEncoder.get();
-//        oldEncoderValues[RobotMap.rearRightMotor] = RobotMap.rearRightEncoder.get();
-//	}
-//	
-//	/* 
-//	 * Sets any values above 1.0 or below -1.0 to those maximums/minimums
-//	 * @param values List of values to be normalized
-//	 */
-//	public void normalize(double[] values) 
-//	{
-//		for (int i = 0; i < values.length; i++)
-//		{
-//			if (values[i] > 1.0) values[i] = 1.0;
-//			else if (values[i] < -1.0) values[i] = -1.0;
-//		}
-//	}
-//    
-    
+
+	/**
+	 * Sets drive to normal Mecanum Drive, controlled by the joystick
+	 */
+	public void setJoystickMecanumDrive()
+	{
+		// reverse right side motors
+		RobotMap.robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
+		RobotMap.robotDrive.setInvertedMotor(MotorType.kRearRight, true);
+		
+		// get joystick values
+		double xValue = this.getExpodentialValue(RobotMap.primaryStick.getX() * this.globalSpeedChange);
+		double yValue = this.getExpodentialValue(RobotMap.primaryStick.getY() * this.globalSpeedChange);
+		double zValue = this.getExpodentialValue(RobotMap.primaryStick.getZ() / 2 * this.globalSpeedChange);
+		
+		// cutoff near zero
+		if (Math.abs(xValue) < RobotMap.JOYSTICK_DEADZONE) xValue = 0;
+		if (Math.abs(yValue) < RobotMap.JOYSTICK_DEADZONE) yValue = 0;
+		if (Math.abs(zValue) < RobotMap.JOYSTICK_DEADZONE) zValue = 0;
+		
+		
+    	// Use the joystick X axis for lateral movement, Y axis for forward movement, and Z axis for rotation. (reverse for joystick)
+		this.setMecanumDrive(xValue, -1.0 * yValue, zValue);
+	}
+
+	
+	/**
+	 * Sets speeds for the Mecanum drive to operate at, while compensating with a gyro.
+	 * @param xSpeed Speed in y direction. From -1.0 to 1.0
+	 * @param ySpeed Speed in x direction. From -1.0 to 1.0
+	 * @param rotationSpeed Speed of rotation. From -1.0 to 1.0 (positive is clockwise)
+	 */
+	public void setMecanumDrive(double xSpeed, double ySpeed, double rotationSpeed)
+	{
+//		// start seeing if gyro must be compensated only if there are no commands to rotate (deadzoning for joysticks is external)
+//      if (rotationSpeed == 0)
+//      {
+//          // set rotation speed according to PID to compensate proportionally to error (invert) (NO INTEGRAL RIGHT????)
+//          rotationSpeed = -1 * RobotMap.gyroPIDControl.getPDoutput(targetGyroAngle, RobotMap.chassisGyro.getAngle());
+//      }
+//      else
+//      {
+//          // until we stop commanding rotation, determine which angle we're at in preparation for compensation
+//          targetGyroAngle = RobotMap.chassisGyro.getAngle();
+//      }
+		
+        // set Mecanum Drive according to parameters, ignoring gyro option (invert ySpeed because function is oriented for joysticks)
+		RobotMap.robotDrive.mecanumDrive_Cartesian(xSpeed, -1.0 * ySpeed, rotationSpeed, 0); 
+		//this.MecanumDrive(xSpeed, -1.0 * ySpeed, rotationSpeed);
+	}
+
+   
 //	/**
 //	 * Function to compute mecanum outputs, compensate via gyro, and threshold outputs to ensure control at high speeds.
 //	 * @param x Speed in x direction to drive (Between -1.0 and 1.0)
@@ -185,56 +157,7 @@ public class Chassis extends Subsystem
 //	    // Feed for motor safety
 //	    Robot.driveMotorSafety.feed();
 //	}
-    
-	/**
-	 * Sets drive to normal Mecanum Drive, controlled by the joystick
-	 */
-	public void setJoystickMecanumDrive()
-	{
-		// reverse right side motors
-		RobotMap.robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
-		RobotMap.robotDrive.setInvertedMotor(MotorType.kRearRight, true);
-		
-		// get joystick values
-		double xValue = this.getExpodentialValue(RobotMap.stick.getX() * this.globalSpeedChange);
-		double yValue = this.getExpodentialValue(RobotMap.stick.getY() * this.globalSpeedChange);
-		double zValue = this.getExpodentialValue(RobotMap.stick.getZ() / 2 * this.globalSpeedChange);
-		
-		// cutoff near zero
-		if (Math.abs(xValue) < RobotMap.JOYSTICK_DEADZONE) xValue = 0;
-		if (Math.abs(yValue) < RobotMap.JOYSTICK_DEADZONE) yValue = 0;
-		if (Math.abs(zValue) < RobotMap.JOYSTICK_DEADZONE) zValue = 0;
-		
-		
-    	// Use the joystick X axis for lateral movement, Y axis for forward movement, and Z axis for rotation. (reverse for joystick)
-		this.setMecanumDrive(xValue, -1.0 * yValue, zValue);
-	}
-
-	
-	/**
-	 * Sets speeds for the Mecanum drive to operate at, while compensating with a gyro.
-	 * @param xSpeed Speed in y direction. From -1.0 to 1.0
-	 * @param ySpeed Speed in x direction. From -1.0 to 1.0
-	 * @param rotationSpeed Speed of rotation. From -1.0 to 1.0 (positive is clockwise)
-	 */
-	public void setMecanumDrive(double xSpeed, double ySpeed, double rotationSpeed)
-	{
-//		// start seeing if gyro must be compensated only if there are no commands to rotate (deadzoning for joysticks is external)
-//      if (rotationSpeed == 0)
-//      {
-//          // set rotation speed according to PID to compensate proportionally to error (invert) (NO INTEGRAL RIGHT????)
-//          rotationSpeed = -1 * RobotMap.gyroPIDControl.getPDoutput(targetGyroAngle, RobotMap.chassisGyro.getAngle());
-//      }
-//      else
-//      {
-//          // until we stop commanding rotation, determine which angle we're at in preparation for compensation
-//          targetGyroAngle = RobotMap.chassisGyro.getAngle();
-//      }
-		
-        // set Mecanum Drive according to parameters, ignoring gyro option (invert ySpeed because function is oriented for joysticks)
-		RobotMap.robotDrive.mecanumDrive_Cartesian(xSpeed, -1.0 * ySpeed, rotationSpeed, 0); 
-		//this.MecanumDrive(xSpeed, -1.0 * ySpeed, rotationSpeed);
-	}
+   
 	
 	/**
 	 * Changes the given input to an exponential value
@@ -278,6 +201,31 @@ public class Chassis extends Subsystem
         this.globalSpeedChange = speed;
     }
 	
+	/** 
+	 * Sets any values above 1.0 or below -1.0 to those maximums/minimums
+	 * @param values List of values to be normalized
+	 */
+	public double[] normalize(double[] values) 
+	{
+		for (int i = 0; i < values.length; i++)
+		{
+			if (values[i] > 1.0) values[i] = 1.0;
+			else if (values[i] < -1.0) values[i] = -1.0;
+		}
+		return values;
+	}
+	
+	/**
+	 * Sets a value above 1.0 or below -1.0 to those maximums/minimums
+	 * @param value A single value to be normalized
+	 */
+	public double normalize(double value) 
+	{
+		if (value > 1.0) return 1.0;
+		else if (value < -1.0) return -1.0;
+		else return value;
+	}
+    
 //	/**
 //	 * Resets gyro and apply configuration
 //	 */
@@ -292,4 +240,70 @@ public class Chassis extends Subsystem
         setDefaultCommand(new MecanumJoystickDrive());
     }
 }
+
+///**
+//* Sets the wheel speeds for mecanum drive based of x, y, and rotation inputs. Also compensates each motor to achive expected RPM performance
+//* @param x Speed in y direction. From -1.0 to 1.0
+//* @param y Speed in x direction. From -1.0 to 1.0
+//* @param rotation Speed of rotation. From -1.0 to 1.0 (positive is clockwise)
+//*/
+//public void setMecanumDrive(double x, double y, double rotation) 
+//{
+//	// get encoder speeds (in ticks per iteration interval)
+//	double encoderSpeeds[] = new double[4];
+//  encoderSpeeds[RobotMap.frontLeftMotor] = oldEncoderValues[RobotMap.frontLeftMotor] - RobotMap.frontLeftEncoder.get();
+//  encoderSpeeds[RobotMap.frontRightMotor] = oldEncoderValues[RobotMap.frontRightMotor] - RobotMap.frontRightEncoder.get();
+//  encoderSpeeds[RobotMap.rearLeftMotor] = oldEncoderValues[RobotMap.rearLeftMotor] - RobotMap.rearLeftEncoder.get();
+//  encoderSpeeds[RobotMap.rearRightMotor] = oldEncoderValues[RobotMap.rearRightMotor] - RobotMap.rearRightEncoder.get();
+//	
+//  // set each motor's compensation (local) based off MOST RECENT measurements
+//  double motorCompensations[] = new double[4];        
+//  motorCompensations[RobotMap.frontLeftMotor] = (oldMotorOutputs[RobotMap.frontLeftMotor] * this.MOTOR_TO_RPM_FACTOR) / encoderSpeeds[RobotMap.frontLeftMotor];
+//  motorCompensations[RobotMap.frontRightMotor] = (oldMotorOutputs[RobotMap.frontRightMotor] * this.MOTOR_TO_RPM_FACTOR) / encoderSpeeds[RobotMap.frontRightMotor];
+//  motorCompensations[RobotMap.rearLeftMotor] = (oldMotorOutputs[RobotMap.rearLeftMotor] * this.MOTOR_TO_RPM_FACTOR) / encoderSpeeds[RobotMap.rearLeftMotor];
+//  motorCompensations[RobotMap.rearRightMotor] = (oldMotorOutputs[RobotMap.rearRightMotor] * this.MOTOR_TO_RPM_FACTOR) / encoderSpeeds[RobotMap.rearRightMotor];
+//  
+//  // then set the actual (global) compensation value only if compensation is needed (if the compensation factor is ~ greater than 1)
+//  if (Math.abs(motorCompensations[RobotMap.frontLeftMotor] - 1) > this.MOTOR_COMPENSATION_THRESHOLD) 
+//  	this.motorCompensations[RobotMap.frontLeftMotor] = motorCompensations[RobotMap.frontLeftMotor];
+//  if (Math.abs(motorCompensations[RobotMap.frontRightMotor] - 1) > this.MOTOR_COMPENSATION_THRESHOLD)
+//  	this.motorCompensations[RobotMap.frontRightMotor] = motorCompensations[RobotMap.frontRightMotor];
+//  if (Math.abs(motorCompensations[RobotMap.rearLeftMotor] - 1) > this.MOTOR_COMPENSATION_THRESHOLD)
+//  	this.motorCompensations[RobotMap.rearLeftMotor] = motorCompensations[RobotMap.rearLeftMotor];
+//  if (Math.abs(motorCompensations[RobotMap.rearRightMotor] - 1) > this.MOTOR_COMPENSATION_THRESHOLD)
+//  	this.motorCompensations[RobotMap.rearRightMotor] = motorCompensations[RobotMap.rearRightMotor];
+//  
+//  // determine wheel speeds for mecanums 
+//  double wheelSpeeds[] = new double[4];
+//  wheelSpeeds[RobotMap.frontLeftMotor] = x + y + rotation;
+//  wheelSpeeds[RobotMap.frontRightMotor] = -x + y - rotation;
+//  wheelSpeeds[RobotMap.rearLeftMotor] = -x + y + rotation;
+//  wheelSpeeds[RobotMap.rearRightMotor] = x + y - rotation;
+//  
+//  // set previous motor settings to these motor settings (DONT apply compensation to these, so we can see what the actual compensation from the theoretical output is)
+//  oldMotorOutputs[RobotMap.frontLeftMotor] = wheelSpeeds[RobotMap.frontLeftMotor];
+//  oldMotorOutputs[RobotMap.frontRightMotor] = wheelSpeeds[RobotMap.frontRightMotor];
+//  oldMotorOutputs[RobotMap.rearLeftMotor] = wheelSpeeds[RobotMap.rearLeftMotor];
+//  oldMotorOutputs[RobotMap.rearRightMotor] = wheelSpeeds[RobotMap.rearRightMotor];
+//  
+//  // compensate motor output based on GLOBAL compensations
+//  wheelSpeeds[RobotMap.frontLeftMotor] *= this.motorCompensations[RobotMap.frontLeftMotor];
+//  wheelSpeeds[RobotMap.frontRightMotor] *= this.motorCompensations[RobotMap.frontRightMotor];
+//  wheelSpeeds[RobotMap.rearLeftMotor] *= this.motorCompensations[RobotMap.rearLeftMotor];
+//  wheelSpeeds[RobotMap.rearRightMotor] *= this.motorCompensations[RobotMap.rearRightMotor];
+//  
+//  // normalize outputs
+//  normalize(wheelSpeeds);
+//  
+//  // set motor outputs
+//  //RobotMap.frontLeftController.set();
+// 
+//  
+//  // set previous encoder distance to current distance
+//  oldEncoderValues[RobotMap.frontLeftMotor] = RobotMap.frontLeftEncoder.get();
+//  oldEncoderValues[RobotMap.frontRightMotor] = RobotMap.frontRightEncoder.get();
+//  oldEncoderValues[RobotMap.rearLeftMotor] = RobotMap.rearLeftEncoder.get();
+//  oldEncoderValues[RobotMap.rearRightMotor] = RobotMap.rearRightEncoder.get();
+//}
+//
 

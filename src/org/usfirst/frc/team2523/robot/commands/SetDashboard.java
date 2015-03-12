@@ -25,17 +25,20 @@ public class SetDashboard extends Command
     protected void execute() 
     {
 		// Configure SmartDashboard displays
+    	// ESSENTIALS
         SmartDashboard.putNumber(" Lift Speed ", Math.abs(Robot.lift.currentLiftSpeed));
-		SmartDashboard.putNumber(" Lift Height ", Robot.lift.getLiftPosition());
+		SmartDashboard.putNumber(" Lift Height ", Robot.lift.getPercentageHeight(Robot.lift.getLiftPosition()));
 		SmartDashboard.putBoolean(" Claw Closed ", Robot.claw.isClawClosed());
 		SmartDashboard.putBoolean(" Crate Present ", Robot.lift.isCratePresent());
 		SmartDashboard.putBoolean(" Lift Calibrating ", Robot.lift.liftCalibrating);
+		SmartDashboard.putNumber(" Actual Lift Height ", Robot.lift.getLiftPosition());
+		SmartDashboard.putNumber(" Drive Distance Y ", Robot.accelerometer.distanceY);
+		SmartDashboard.putBoolean(" High Speed Mode On", Robot.chassis.globalSpeedChange == 1.0);
+
+		// DIAGNOSTICS
 		SmartDashboard.putNumber(" Encoder Reading ", RobotMap.liftEncoder.get());
 		SmartDashboard.putNumber(" Encoder Distance ", Robot.lift.getLiftPosition());
-		SmartDashboard.putNumber(" Actual Lift Height ", Robot.lift.getHeight(Robot.lift.getLiftPosition()));
 		//SmartDashboard.putNumber(" Direction ", RobotMap.chassisGyro.getAngle());
-		SmartDashboard.putNumber(" Drive Distance ", Robot.chassis.rearRightDistance);
-		SmartDashboard.putBoolean(" High Speed Mode On", Robot.chassis.globalSpeedChange == 1.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

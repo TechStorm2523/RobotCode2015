@@ -10,12 +10,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Lift extends Subsystem 
 {
-	// define position constants
+	// define position constants TODO: ADD MORE AND CHECK INCH CONVERSIONS!!!!!!!!!!!!!!!!!!!!!
 	public final double PICK_UP_HEIGHT = 0.0;  // height to lift crate
-	public final double SET_ON_TOP_HEIGHT = 85.0; // height to release claw on top of other crate
-	public final double DRIVE_HEIGHT = 20.0; // height to drive with stack of crates and be able to go over another crate
+	public final double SET_ON_TOP_HEIGHT = 13; // height to release claw on top of other crate
+	public final double DRIVE_HEIGHT = 5; // height to drive with stack of crates
+	public final double MAX_HEIGHT = RobotMap.MAX_LIFT_HEIGHT; // redirect value here as well
 	
-	// define constant to control lift calibration
+	// define constant to control lift calibrations
 	public boolean liftCalibrating = false;
 	
 	// define throttle speed control variable
@@ -93,8 +94,8 @@ public class Lift extends Subsystem
 			// set the distance per pulse if at the top
 			else if (isAtUpperLimit())
 			{			
-				// calculate DISTANCE_PER_PULSE based off encoder reading at top (set so that 100 is max)
-				RobotMap.LIFT_ENCODER_DISTANCE_PER_PULSE = 100.0 / RobotMap.liftEncoder.get();
+				// calculate DISTANCE_PER_PULSE based off encoder reading at top (set so that the max inch reading is at the top)
+				RobotMap.LIFT_ENCODER_DISTANCE_PER_PULSE = RobotMap.MAX_LIFT_HEIGHT / RobotMap.liftEncoder.get();
 				
 				// set encoder distance based off this
 				RobotMap.liftEncoder.setDistancePerPulse(RobotMap.LIFT_ENCODER_DISTANCE_PER_PULSE);
@@ -110,18 +111,18 @@ public class Lift extends Subsystem
 	 */
 	public double getLiftPosition()
 	{
-		// return the encoder distance (which should be between 0 and 100)
+		// return the encoder distance (which should be between 0 and RobotMap.MAX_LIFT_HEIGHT)
 		return RobotMap.liftEncoder.getDistance();
 	}
 	
 	/**
 	 * Used to get real world lift height based off percentage height
-	 * @param percentage Percentage of full height
-	 * @return Returns the height in inches
+	 * @param percentage Actual height in inches
+	 * @return Returns the height in a percentage value between 0 and 100.
 	 */
-	public double getHeight(double percentage)
+	public double getPercentageHeight(double height)
 	{
-		return percentage * RobotMap.LIFT_HEIGHT_PER_PERCENTAGE;
+		return 100 * (height / RobotMap.MAX_LIFT_HEIGHT);
 	}
 	
 	/**

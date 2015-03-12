@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 
 /**
@@ -26,13 +27,16 @@ import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 public class RobotMap 
 {
 	/**
-	 * CONSTANTS
+	 * CONSTANTS TODO: CHANGE NUMBERS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	 */
-	// LIFT (TICKS AT TOP = 3668)
+	// LIFT (TICKS AT TOP = 3668) (NOTE: HEIGHTS START AT BOTTOM LIFT HEIGHT)
 	public static final double MAX_LIFT_SPEED = 0.6;  // max speed for auto rising lift
+	public static final double MAX_LIFT_HEIGHT = 60; // max height in inches
 	public static double LIFT_ENCODER_DISTANCE_PER_PULSE = 100.0/3625; // theoretical limit - "distance" per pulse of encoder - set so that encoder.getDistance() is 100 when the lift is at the top
 	public static final double LIFT_STOP_TOLERANCE = 2.0; // sets percentage of total height that lift will stop moving near it's max or min height
 	public static final double LIFT_HEIGHT_PER_PERCENTAGE = 14.5/100; // inches per 1% of lift height (full height / 100)
+	public static final double TOTE_INCREMENT_HEIGHT = 12; // actual height of a tote
+	public static final double TOTE_TOP_CLEARANCE = 1;// height to move tote above "theoretical" (perfectly on top) height
 	
 	// CAMERA
 	public static final int CAMERA_WIDTH = 640;
@@ -46,8 +50,7 @@ public class RobotMap
 	public static final double FEET_PER_SECOND_PER_SPEED_UNIT = 10/1.0; // the speed the wheel goes at full power in feet per second
 	public static final double DRIVE_GYRO_SENSITIVITY = 0.009; // Volts/degree/second
 	public static final double DRIVE_GYRO_DEADBAND = 0.001; // Volts
-	
-	
+
     /**
      * PID INPUTS
      */
@@ -57,8 +60,12 @@ public class RobotMap
     public static final int frontRightPort  = 1;
     public static final int rearRightPort	= 0;
 	
-    // Other Motors
+    // Lift Motor
 	public static Jaguar liftMotor = new Jaguar(4);
+	
+	// Feeder Wheel controllers
+	public static Victor rightFeedMotor = new Victor(5);
+	public static Victor leftFeedMotor = new Victor(5);	
 	
 	/**
 	 * PCM INPUTS (PNEUMATICS)
@@ -108,7 +115,8 @@ public class RobotMap
 	/**
 	 * Joystick(s)
 	 */
-    public static Joystick stick = new Joystick(0); 
+    public static Joystick primaryStick = new Joystick(0);
+    public static Joystick secondaryStick = new Joystick(1); 
     
 	/**
 	 * PID CONTROL SYSTEMS
