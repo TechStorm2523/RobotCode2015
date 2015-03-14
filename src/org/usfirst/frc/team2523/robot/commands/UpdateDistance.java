@@ -6,15 +6,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team2523.robot.Robot;
 
 /**
- * Cancels lift calibration sequence
+ * Runs the integration function of the accelerometer
  */
-public class CancelLiftMovement extends Command
+public class UpdateDistance extends Command 
 {
-
-    public CancelLiftMovement() 
+    public UpdateDistance() 
     {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.lift);
+        requires(Robot.accelerometer);
     }
 
     // Called just before this Command runs the first time
@@ -23,17 +22,14 @@ public class CancelLiftMovement extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
-    	// set lift to stop calibrating if it is
-    	Robot.lift.liftCalibrating = false;
-    	
-    	// stop motor
-    	Robot.lift.moveLift(0.0);
+    	// run function
+    	Robot.accelerometer.addToIntegration();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() 
     {
-    	// only run once
+    	// runs once
         return true;
     }
 

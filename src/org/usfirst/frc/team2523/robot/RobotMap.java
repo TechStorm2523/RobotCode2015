@@ -29,14 +29,12 @@ public class RobotMap
 	/**
 	 * CONSTANTS TODO: CHANGE NUMBERS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	 */
-	// LIFT (TICKS AT TOP = 3668) (NOTE: HEIGHTS START AT BOTTOM LIFT HEIGHT)
+	// LIFT (NOTE: HEIGHTS START AT BOTTOM LIFT HEIGHT)
+	public static final double TICKS_AT_TOP = 3625; // ticks encoder reads at top (determined theoretically)
 	public static final double MAX_LIFT_SPEED = 0.6;  // max speed for auto rising lift
 	public static final double MAX_LIFT_HEIGHT = 60; // max height in inches
-	public static double LIFT_ENCODER_DISTANCE_PER_PULSE = 100.0/3625; // theoretical limit - "distance" per pulse of encoder - set so that encoder.getDistance() is 100 when the lift is at the top
-	public static final double LIFT_STOP_TOLERANCE = 2.0; // sets percentage of total height that lift will stop moving near it's max or min height
-	public static final double LIFT_HEIGHT_PER_PERCENTAGE = 14.5/100; // inches per 1% of lift height (full height / 100)
-	public static final double TOTE_INCREMENT_HEIGHT = 12; // actual height of a tote
-	public static final double TOTE_TOP_CLEARANCE = 1;// height to move tote above "theoretical" (perfectly on top) height
+	public static double LIFT_ENCODER_DISTANCE_PER_PULSE = MAX_LIFT_HEIGHT / TICKS_AT_TOP; // theoretical limit - "distance" per pulse of encoder - set so that encoder.getDistance() is MAX_LIFT_HEIGHT when the lift is at the top
+	public static final double LIFT_STOP_TOLERANCE = 0.5; // sets distance off target that lift will stop moving near it's max or min height
 	
 	// CAMERA
 	public static final int CAMERA_WIDTH = 640;
@@ -47,8 +45,7 @@ public class RobotMap
 	public static final double JOYSTICK_DEADZONE = 0.05;
 	public static final double EXPONENETIAL_FACTOR = 2;
 	public static final double DEFAULT_SPEED_REDUCTION = 0.5;
-	public static final double FEET_PER_SECOND_PER_SPEED_UNIT = 10/1.0; // the speed the wheel goes at full power in feet per second
-	public static final double DRIVE_GYRO_SENSITIVITY = 0.009; // Volts/degree/second
+	public static final double DRIVE_GYRO_SENSITIVITY = 9e-3; // Volts/degree/second
 	public static final double DRIVE_GYRO_DEADBAND = 0.001; // Volts
 
     /**
@@ -65,7 +62,7 @@ public class RobotMap
 	
 	// Feeder Wheel controllers
 	public static Victor rightFeedMotor = new Victor(5);
-	public static Victor leftFeedMotor = new Victor(5);	
+	public static Victor leftFeedMotor = new Victor(6);	
 	
 	/**
 	 * PCM INPUTS (PNEUMATICS)

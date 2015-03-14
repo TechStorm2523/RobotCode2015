@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2523.robot.Robot;
 import org.usfirst.frc.team2523.robot.RobotMap;
+import org.usfirst.frc.team2523.robot.subsystems.Lift;
 
 
 /**
@@ -35,15 +36,15 @@ public class SetLiftTarget extends Command
     
 	/**
 	 * Constructor to instruct the lift to travel at MAX_SPEED to target, the tote position
-	 * @param target The targeted tote position (between 1 and 6)
+	 * @param target The targeted tote LEVEL (between 0 and 5)
 	 */
     public SetLiftTarget(int target) 
     {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.lift);
         
-        // apply target to the lift (convert tote height to inches and add some clearance)
-        this.target = target * RobotMap.TOTE_INCREMENT_HEIGHT + RobotMap.TOTE_TOP_CLEARANCE;
+        // apply target to the lift (convert level to inches)
+        this.target = Robot.lift.getCalibratedLevel(target);
         
         // set speed
         this.speed = RobotMap.MAX_LIFT_SPEED;
@@ -68,7 +69,7 @@ public class SetLiftTarget extends Command
     
 	/**
 	 * Constructor to instruct the lift to travel at a certain speed to target, the relative height of the lift
-	 * @param target The targeted tote position (between 1 and 6)
+	 * @param target The targeted tote LEVEL (between 0 and 5)
 	 * @param speed Max speed to move the lift at. Between 0.0 and 1.0
 	 */
     public SetLiftTarget(int target, double speed) 
@@ -76,14 +77,13 @@ public class SetLiftTarget extends Command
         // Use requires() here to declare subsystem dependencies
         requires(Robot.lift);
         
-        // apply target to the lift (convert tote height to inches and add some clearance)
-        this.target = target * RobotMap.TOTE_INCREMENT_HEIGHT + RobotMap.TOTE_TOP_CLEARANCE;
+        // apply target to the lift (convert level to inches)
+        this.target = Robot.lift.getCalibratedLevel(target);
         
         // set speed
         this.speed = speed;
     }
-    
-    
+
     // Called just before this Command runs the first time
     protected void initialize() 
     {
@@ -104,12 +104,14 @@ public class SetLiftTarget extends Command
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() 
     {
-    	// this is never done until interrupted		// return true if the robot is at limits OR we are less than STOP_TOLERANCE from the target
-        return Math.abs(target - RobotMap.liftEncoder.getDistance()) <= RobotMap.LIFT_STOP_TOLERANCE;
+    	// return true if the robot is at limits OR we are less than STOP_TOLERANCE from the target
+        return Math.abs(target - RobotMap.liftEncoder.getDistance()) <= RobotMap.LIFT_STOP_TOLERANCE 
+        				|| (speed > 0 && Robot.lift.isAtUpperLimit()) 
+        				|| (speed < 0 && Robot.lift.isAtLowerLimit());
     }
 
     // Called once after isFinished returns true
-    protected void end() 
+    protected void end()
     {
     	// ensure motor is stopped
     	Robot.lift.moveLift(0.0);
