@@ -6,11 +6,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team2523.robot.Robot;
 
 /**
- * Runs the integration function of the accelerometer
+ * Resets integration of the accelerometer
  */
-public class MeasureDistance extends Command 
+public class ResetDistance extends Command 
 {
-    public MeasureDistance() 
+    public ResetDistance() 
     {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.accelerometer);
@@ -23,7 +23,7 @@ public class MeasureDistance extends Command
     protected void execute() 
     {
     	// run function
-    	Robot.accelerometer.addToIntegration();
+    	Robot.accelerometer.resetDistance();
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -4,41 +4,26 @@ package org.usfirst.frc.team2523.robot.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 import org.usfirst.frc.team2523.robot.Robot;
+import org.usfirst.frc.team2523.robot.subsystems.Lift;
 
 /**
- * Lifts all three totes up in autonomous
+ * Lifts just the can in auto
  */
 public class AutonomousCommandDriveWithCan extends CommandGroup
 {
     public AutonomousCommandDriveWithCan() 
     {
-    	// close on the bin and raise it
+    	// close claw
     	addSequential(new CloseClaw());
-    	addSequential(new SetLiftTarget(Robot.lift.SET_ON_TOP_HEIGHT, 1.0));
     	
-    	// drive to the crate
-    	addSequential(new DriveForwardUntilCrate(0.25));
+    	// raise lift up a couple inches (?)
+    	addSequential(new SetLiftTarget(Lift.DRIVE_HEIGHT));
     	
-    	// wait
-        addSequential(new Wait(0.25));
-    	
-        // lower crate on top and release claw, then wait a sec
-        addSequential(new OpenClaw());
-        addSequential(new Wait(0.25));
-        
-        // lower to bottom and grab crate
-        addSequential(new SetLiftTarget(Robot.lift.PICK_UP_HEIGHT, 1.0));
-        addSequential(new Wait(0.5));
-        addSequential(new CloseClaw());
-        
-        // wait a bit
-        addSequential(new Wait(0.5));
-        
-        // lift to a height to move with
-        addSequential(new SetLiftTarget(Robot.lift.SET_ON_TOP_HEIGHT, 1.0));
-    	
-        // drive off
+    	// turn about 90 degrees THE OPPOSITE DIRECTION
     	addSequential(new DriveForTime(2, 0, 0, -0.25));
-    	addSequential(new DriveForTime(2, 0, 0.5, 0));
+    	
+    	// drive for 10 feet
+    	addSequential(new ResetDistance());  
+    	addSequential(new DriveForDistance(10, 0, 0.5));
     }
 }
