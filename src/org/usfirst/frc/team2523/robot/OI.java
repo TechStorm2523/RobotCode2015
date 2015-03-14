@@ -46,8 +46,8 @@ public class OI
 	     * until it is finished as determined by it's isFinished method.
 	     */
     	// use the trigger and thumb buttons to control the closing and opening of the claw, respectively
-		triggerButton.whenPressed(new CloseClaw());
-		thumbButton.whenPressed(new OpenClaw());
+		//triggerButton.whenPressed(new CloseClaw());
+		//thumbButton.whenPressed(new OpenClaw());
 		
 		// use top and bottom left buttons to set lift target to top and bottom, respectively
 	    topLeftButton.whenPressed(new SetLiftTarget(100.0, 1.0));

@@ -44,6 +44,16 @@ public class MainAccelerometer extends Subsystem
 		this.distanceY = 0;
 	}
 	
+	/**
+	 * Converts the given value in meters to feet
+	 * @param meters Value in meters
+	 * @return Returns value in feet
+	 */
+	public double convertToFeet(double meters)
+	{
+		return 3.281 * meters;
+	}
+	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         setDefaultCommand(new MeasureDistance());

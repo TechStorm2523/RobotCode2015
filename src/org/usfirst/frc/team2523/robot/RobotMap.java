@@ -49,7 +49,6 @@ public class RobotMap
 	public static final double DEFAULT_SPEED_REDUCTION = 0.5;
 	public static final double FEET_PER_SECOND_PER_SPEED_UNIT = 10/1.0; // the speed the wheel goes at full power in feet per second
 	public static final double DRIVE_GYRO_SENSITIVITY = 0.009; // Volts/degree/second
-	public static final double DRIVE_GYRO_DEADBAND = 0.001; // Volts
 
     /**
      * PID INPUTS

@@ -12,7 +12,7 @@ public class Lift extends Subsystem
 {
 	// define position constants TODO: ADD MORE AND CHECK INCH CONVERSIONS!!!!!!!!!!!!!!!!!!!!!
 	public final double PICK_UP_HEIGHT = 0.0;  // height to lift crate
-	public final double SET_ON_TOP_HEIGHT = 13; // height to release claw on top of other crate
+	public final double SET_ON_TOP_HEIGHT = RobotMap.TOTE_INCREMENT_HEIGHT + RobotMap.TOTE_TOP_CLEARANCE; // height to release claw on top of other crate
 	public final double DRIVE_HEIGHT = 5; // height to drive with stack of crates
 	public final double MAX_HEIGHT = RobotMap.MAX_LIFT_HEIGHT; // redirect value here as well
 	

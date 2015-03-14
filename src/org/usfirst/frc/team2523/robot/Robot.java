@@ -66,8 +66,8 @@ public class Robot extends IterativeRobot
     	camera = new Camera();
     	dashboard = new Dashboard();
 		oi = new OI();
-		accelerometer = new MainAccelerometer();
-		feederWheels = new FeederWheels();
+		//accelerometer = new MainAccelerometer();
+		//feederWheels = new FeederWheels();
 		//driveMotorSafety = new MotorSafetySystem(0.1);
 				//RobotMap.frontLeftMotor, RobotMap.rearLeftMotor, RobotMap.frontLeftMotor, RobotMap.rearRightMotor); // set timeout to be 0.1 seconds
 		
