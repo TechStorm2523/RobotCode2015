@@ -17,7 +17,7 @@ public class Lift extends Subsystem
 	public static final double DRIVE_HEIGHT = 5; // height to drive with stack of crates
 	public static final double MAX_HEIGHT = RobotMap.MAX_LIFT_HEIGHT; // redirect value here as well
 	public static final int MAX_LEVEL = (int) (Lift.MAX_HEIGHT / Lift.TOTE_INCREMENT_HEIGHT); // max number of totes to stack (from 1 to 6) (truncated)
-	
+
 	// define constant to control lift calibrations
 	public boolean liftCalibrating = false;
 	

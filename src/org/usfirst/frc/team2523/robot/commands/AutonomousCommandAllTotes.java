@@ -19,7 +19,7 @@ public class AutonomousCommandAllTotes extends CommandGroup
         addSequential(new CloseClaw());
         addSequential(new Wait(0.5));
         addSequential(new SetLiftTarget(1, 1.0));
-        addParralel(new SetFeederWheels(true));
+        addParallel(new SetFeederWheels(true));
                
         // move around the trash can while raising lift (Move sideways, then forwards, then sideways again)
 //        addParallel(new ResetDistance());
@@ -37,7 +37,7 @@ public class AutonomousCommandAllTotes extends CommandGroup
         addSequential(new CloseClaw());
         addSequential(new Wait(0.5));
         addSequential(new SetLiftTarget(1, 0.75));
-        addParralel(new SetFeederWheels(true));
+        addParallel(new SetFeederWheels(true));
         
         // move around the trash can while raising lift (Move sideways, then forwards, then sideways again
 //      addParallel(new ResetDistance());

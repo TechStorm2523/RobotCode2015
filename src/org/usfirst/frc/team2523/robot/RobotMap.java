@@ -30,7 +30,7 @@ public class RobotMap
 	 * CONSTANTS TODO: CHANGE NUMBERS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	 */
 	// LIFT (NOTE: HEIGHTS START AT BOTTOM LIFT HEIGHT)
-	public static final double TICKS_AT_TOP = 3625; // ticks encoder reads at top (determined theoretically)
+	public static final double TICKS_AT_TOP = 10875; // ticks encoder reads at top (determined theoretically)
 	public static final double MAX_LIFT_SPEED = 0.6;  // max speed for auto rising lift
 	public static final double MAX_LIFT_HEIGHT = 60; // max height in inches
 	public static double LIFT_ENCODER_DISTANCE_PER_PULSE = MAX_LIFT_HEIGHT / TICKS_AT_TOP; // theoretical limit - "distance" per pulse of encoder - set so that encoder.getDistance() is MAX_LIFT_HEIGHT when the lift is at the top
@@ -46,7 +46,9 @@ public class RobotMap
 	public static final double EXPONENETIAL_FACTOR = 2;
 	public static final double DEFAULT_SPEED_REDUCTION = 0.5;
 	public static final double DRIVE_GYRO_SENSITIVITY = 9e-3; // Volts/degree/second
-	public static final double DRIVE_GYRO_DEADBAND = 0.001; // Volts
+	
+	// FEED WHEELS
+	public static final double FEED_WHEEL_COMPENSATION = 0.5;
 
     /**
      * PID INPUTS
@@ -61,8 +63,8 @@ public class RobotMap
 	public static Jaguar liftMotor = new Jaguar(4);
 	
 	// Feeder Wheel controllers
-	public static Victor rightFeedMotor = new Victor(5);
-	public static Victor leftFeedMotor = new Victor(6);	
+	public static Victor rightFeedMotor = new Victor(6);
+	public static Victor leftFeedMotor = new Victor(5);	
 	
 	/**
 	 * PCM INPUTS (PNEUMATICS)

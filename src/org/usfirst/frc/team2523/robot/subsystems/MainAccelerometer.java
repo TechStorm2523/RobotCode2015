@@ -45,9 +45,9 @@ public class MainAccelerometer extends Subsystem
 	}
 	
 	/**
-	 * Converts meters to feet
-	 * @param meters Meters to convert
-	 * @return Returns feet from meters
+	 * Converts the given value in meters to feet
+	 * @param meters Value in meters
+	 * @return Returns value in feet
 	 */
 	public double convertToFeet(double meters)
 	{

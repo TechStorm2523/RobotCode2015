@@ -37,7 +37,7 @@ public class MoveLiftByThrottle extends Command
     {
     	// get lift speed according to throttle control, and multiplier determing direction
     	// getThrottle is between -1.0 and 1.0, so shift up by 1 and multiply by -0.5 so value is 1.0 at max throttle and 0 at min
-    	Robot.lift.currentLiftSpeed = (RobotMap.primaryStick.getThrottle() - 1) * 0.5 * this.multiplier;
+    	Robot.lift.currentLiftSpeed = (RobotMap.secondaryStick.getThrottle() - 1) * 0.5 * this.multiplier;
     	
 		// move lift at this speed
     	Robot.lift.moveLift(Robot.lift.currentLiftSpeed);
@@ -69,6 +69,7 @@ public class MoveLiftByThrottle extends Command
     // subsystems is scheduled to run
     protected void interrupted() 
     {
+    	// NEED SOMETHING TO NOT BE CALLED ALL THE TIME (SOMETHING ELSE MIGHT BE DOING THAT) 
     	end();
     }
 }
