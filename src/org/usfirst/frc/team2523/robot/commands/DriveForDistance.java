@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team2523.robot.Robot;
 
 /**
- * Drives the robot in the given direction for the given time
+ * Drives the robot in the given direction for the given time !!!!!!!!!!!!!!!!!!!!    POSSIBLE PID CONTROL   ??????????????????????
  */
 public class DriveForDistance extends Command 
 {
@@ -17,9 +17,9 @@ public class DriveForDistance extends Command
 	
 	/**
 	 * Drives the robot in the given direction for a certain distance.
-	 * @param distanceX Distance in feet to drive in x direction (between -1.0 and 1.0)
-	 * @param distanceY Distance in feet to drive in y direction (between -1.0 and 1.0)
-	 * @param speed Speed to drive in both directions (between -1.0 and 1.0) (clockwise is positive)
+	 * @param distanceX Distance in feet to drive in x direction (right is positive)
+	 * @param distanceY Distance in feet to drive in y direction (forward is positive)
+	 * @param speed Speed to drive in both directions (between 0.0 and 1.0)
 	 */
     public DriveForDistance(double distanceX, double distanceY, double speed) 
     {
@@ -37,6 +37,10 @@ public class DriveForDistance extends Command
     {
     	// reset wheel distance
     	Robot.accelerometer.resetDistance();
+    	
+    	// normalize speed
+    	if (this.speed < 0) this.speed = 0;
+    	else if (this.speed > 1.0) this.speed = 1.0;
     }
 
     // Called repeatedly when this Command is scheduled to run

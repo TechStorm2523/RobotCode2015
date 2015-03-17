@@ -11,11 +11,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Lift extends Subsystem 
 {
 	// define position constants TODO: ADD MORE AND CHECK INCH CONVERSIONS!!!!!!!!!!!!!!!!!!!!!
-	public final double PICK_UP_HEIGHT = 0.0;  // height to lift crate
-	public final double SET_ON_TOP_HEIGHT = RobotMap.TOTE_INCREMENT_HEIGHT + RobotMap.TOTE_TOP_CLEARANCE; // height to release claw on top of other crate
-	public final double DRIVE_HEIGHT = 5; // height to drive with stack of crates
-	public final double MAX_HEIGHT = RobotMap.MAX_LIFT_HEIGHT; // redirect value here as well
-	
+	public static final double TOTE_INCREMENT_HEIGHT = 12; // actual height of a tote
+	public static final double TOTE_TOP_CLEARANCE = 1;// height to move tote above "theoretical" (perfectly on top) height
+	public static final double PICK_UP_HEIGHT = 0.0;  // height to pick up crate from
+	public static final double DRIVE_HEIGHT = 5; // height to drive with stack of crates
+	public static final double MAX_HEIGHT = RobotMap.MAX_LIFT_HEIGHT; // redirect value here as well
+	public static final int MAX_LEVEL = (int) (Lift.MAX_HEIGHT / Lift.TOTE_INCREMENT_HEIGHT); // max number of totes to stack (from 1 to 6) (truncated)
+
 	// define constant to control lift calibrations
 	public boolean liftCalibrating = false;
 	
@@ -95,7 +97,7 @@ public class Lift extends Subsystem
 			else if (isAtUpperLimit())
 			{			
 				// calculate DISTANCE_PER_PULSE based off encoder reading at top (set so that the max inch reading is at the top)
-				RobotMap.LIFT_ENCODER_DISTANCE_PER_PULSE = RobotMap.MAX_LIFT_HEIGHT / RobotMap.liftEncoder.get();
+				RobotMap.LIFT_ENCODER_DISTANCE_PER_PULSE = MAX_HEIGHT / RobotMap.liftEncoder.get();
 				
 				// set encoder distance based off this
 				RobotMap.liftEncoder.setDistancePerPulse(RobotMap.LIFT_ENCODER_DISTANCE_PER_PULSE);
@@ -122,7 +124,7 @@ public class Lift extends Subsystem
 	 */
 	public double getPercentageHeight(double height)
 	{
-		return 100 * (height / RobotMap.MAX_LIFT_HEIGHT);
+		return 100 * (height / MAX_HEIGHT);
 	}
 	
 	/**
@@ -132,6 +134,42 @@ public class Lift extends Subsystem
 	public void setTarget(double target)
 	{
 		this.target = target;
+	}
+	
+	/**
+	 * Calculates current tote level height based off inch reading and proximity to the corresponding level
+	 * @return Returns the level the lift is at from 0 to 5
+	 */
+	public int getCurrentToteLevel()
+	{
+		// round the current level divided by the inches per level
+		return (int) Math.round(RobotMap.liftEncoder.getDistance() / TOTE_INCREMENT_HEIGHT);
+	}
+	
+    /**
+     * Applies some logic to an inputed tote level request to convert it to inches 
+     * while compensating for situations on the top and bottom
+     * @param level The targeted tote level (between 0 and 5)
+     * @return Returns a lift height in inches
+     */
+    public double getCalibratedLevel(int level)
+    {
+    	// normalize level value if at extremes, otherwise convert tote height to inches and add some clearance
+    	if (target == 0) return 0;
+    	else if (target == MAX_LEVEL) return MAX_HEIGHT; 
+    	else return target * TOTE_INCREMENT_HEIGHT + TOTE_TOP_CLEARANCE;
+    }
+   
+	/**
+	 * @param level Raw tote level int
+	 * @return Returns the level normalized to the max level of the lift
+	 */
+	public int normalizeToteLevel(int level) 
+	{
+		// ensure level does not exceed max level (the number of tote heights that fit in our lift height)
+		if (level < 0) return 0;
+		else if (level > MAX_LEVEL) return (MAX_LEVEL);
+		else return level;
 	}
 	
 	public void initDefaultCommand() 

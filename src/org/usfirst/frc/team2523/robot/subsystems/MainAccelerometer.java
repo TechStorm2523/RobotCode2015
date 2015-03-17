@@ -2,7 +2,7 @@
 package org.usfirst.frc.team2523.robot.subsystems;
 
 import org.usfirst.frc.team2523.robot.RobotMap;
-import org.usfirst.frc.team2523.robot.commands.MeasureDistance;
+import org.usfirst.frc.team2523.robot.commands.UpdateDistance;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -28,8 +28,8 @@ public class MainAccelerometer extends Subsystem
 	    double deltaTime = (this.lastReadTime - System.nanoTime()) * 1e-9;
 	    
 		// set distance based off acceleration (integration) x = 0.5at^2
-	    this.distanceX += 0.5 * -RobotMap.accelerometer.getX() * deltaTime * deltaTime; 
-		this.distanceY += 0.5 * RobotMap.accelerometer.getZ() * deltaTime * deltaTime;
+	    this.distanceX += convertToFeet(0.5 * -RobotMap.accelerometer.getX() * deltaTime * deltaTime); 
+		this.distanceY += convertToFeet(0.5 * RobotMap.accelerometer.getZ() * deltaTime * deltaTime);
 		
 	    // reset last time read
 	    this.lastReadTime = System.nanoTime();
@@ -51,12 +51,12 @@ public class MainAccelerometer extends Subsystem
 	 */
 	public double convertToFeet(double meters)
 	{
-		return 3.281 * meters;
+		return 3.28084 * meters;
 	}
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new MeasureDistance());
+        setDefaultCommand(new UpdateDistance());
     }
 }
 

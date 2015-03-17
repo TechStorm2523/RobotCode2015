@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2523.robot.commands.AutonomousCommandAllTotes;
-import org.usfirst.frc.team2523.robot.commands.AutonomousCommandBasic;
+import org.usfirst.frc.team2523.robot.commands.AutonomousCommandDriveWithCan;
+import org.usfirst.frc.team2523.robot.commands.AutonomousCommandExperimental;
 import org.usfirst.frc.team2523.robot.commands.AutonomousCommandDriveWithCanAndTote;
 import org.usfirst.frc.team2523.robot.commands.AutonomousCommandDriveWithTote;
 import org.usfirst.frc.team2523.robot.commands.AutonomousCommandSingleTote;
@@ -66,16 +67,20 @@ public class Robot extends IterativeRobot
     	camera = new Camera();
     	dashboard = new Dashboard();
 		oi = new OI();
-		//accelerometer = new MainAccelerometer();
-		//feederWheels = new FeederWheels();
+		accelerometer = new MainAccelerometer();
+		feederWheels = new FeederWheels();
 		//driveMotorSafety = new MotorSafetySystem(0.1);
 				//RobotMap.frontLeftMotor, RobotMap.rearLeftMotor, RobotMap.frontLeftMotor, RobotMap.rearRightMotor); // set timeout to be 0.1 seconds
-		
+		oi = new OI();
+    	
 		// create the autonomous command chooser
 		autoChooser = new SendableChooser();
 		autoChooser.addDefault("Turn with tote and go", new AutonomousCommandDriveWithTote());
-		autoChooser.addObject("Turn with can, get crate and go", new AutonomousCommandDriveWithCanAndTote());
-		autoChooser.addObject("Just go straight", new AutonomousCommandBasic());
+		autoChooser.addObject("Just go straight", new AutonomousCommandSingleTote());
+		autoChooser.addObject("Turn with can and go", new AutonomousCommandDriveWithCan());
+		autoChooser.addObject("Turn with can, get crate, and go", new AutonomousCommandDriveWithCanAndTote());
+		autoChooser.addObject("Grab all three crates and go, assuming no can", new AutonomousCommandAllTotes());
+		autoChooser.addObject("Experimental Autonomous", new AutonomousCommandExperimental());
 		
 		// put option on dashboard
 		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
