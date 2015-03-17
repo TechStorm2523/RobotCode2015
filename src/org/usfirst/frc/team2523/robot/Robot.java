@@ -1,12 +1,9 @@
 
 package org.usfirst.frc.team2523.robot;
 
-import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,7 +14,6 @@ import org.usfirst.frc.team2523.robot.commands.AutonomousCommandExperimental;
 import org.usfirst.frc.team2523.robot.commands.AutonomousCommandDriveWithCanAndTote;
 import org.usfirst.frc.team2523.robot.commands.AutonomousCommandDriveWithTote;
 import org.usfirst.frc.team2523.robot.commands.AutonomousCommandSingleTote;
-import org.usfirst.frc.team2523.robot.commands.SetLiftTarget;
 import org.usfirst.frc.team2523.robot.subsystems.Camera;
 import org.usfirst.frc.team2523.robot.subsystems.Chassis;
 import org.usfirst.frc.team2523.robot.subsystems.Claw;

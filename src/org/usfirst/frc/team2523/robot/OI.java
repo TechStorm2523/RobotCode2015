@@ -6,9 +6,11 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc.team2523.robot.commands.CalibrateLift;
 import org.usfirst.frc.team2523.robot.commands.CloseClaw;
 import org.usfirst.frc.team2523.robot.commands.IncrementLiftLevel;
+import org.usfirst.frc.team2523.robot.commands.LowerLift;
 import org.usfirst.frc.team2523.robot.commands.MoveLiftByThrottle;
 import org.usfirst.frc.team2523.robot.commands.OpenClaw;
 import org.usfirst.frc.team2523.robot.commands.PickUpNewCrate;
+import org.usfirst.frc.team2523.robot.commands.RaiseLift;
 import org.usfirst.frc.team2523.robot.commands.SetDriveSpeed;
 import org.usfirst.frc.team2523.robot.commands.SetLiftTarget;
 
@@ -113,9 +115,11 @@ public class OI
 	    secondaryBottomRightButton.whileHeld(new MoveLiftByThrottle("DOWN"));
 	    
 	    // TEMP
-		// use the top and bottom left buttons on top of the PRIMARY joystick to raise and lower (respectively) the lift at the speed set by the throttle
-	    primaryTopRightButton.whileHeld(new MoveLiftByThrottle("UP"));
-	    primaryBottomRightButton.whileHeld(new MoveLiftByThrottle("DOWN"));
+		// use the top and bottom left buttons on t`op of the PRIMARY joystick to raise and lower (respectively) the lift at the speed set by the throttle
+//	    primaryTopRightButton.whileHeld(new MoveLiftByThrottle("UP"));
+//	    primaryBottomRightButton.whileHeld(new MoveLiftByThrottle("DOWN"));
+	    primaryTopRightButton.whileHeld(new RaiseLift(1.0));
+	    primaryBottomRightButton.whileHeld(new LowerLift(1.0));
 	    
 	    // Start the command when the button is released  and let it run the command
 	    // until it is finished as determined by it's isFinished method.

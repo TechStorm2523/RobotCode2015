@@ -17,7 +17,7 @@ public class FeederWheels extends Subsystem
     // here. Call these from Commands.
 	
 	// motor inversion constants
-	double leftMotorInversion = 1;
+	double leftMotorInversion = -1;
 	double rightMotorInversion = 1;
 	
 	/**
@@ -78,8 +78,8 @@ public class FeederWheels extends Subsystem
 	    }
 	    
 	    // set motor outputs
-	    RobotMap.rightFeedMotor.set(rightMotorSpeed * rightMotorInversion);
-	    RobotMap.leftFeedMotor.set(leftMotorSpeed * leftMotorInversion);
+	    RobotMap.rightFeedMotor.set(rightMotorSpeed * rightMotorInversion * RobotMap.FEED_WHEEL_COMPENSATION);
+	    RobotMap.leftFeedMotor.set(leftMotorSpeed * leftMotorInversion * RobotMap.FEED_WHEEL_COMPENSATION);
 	}
 	
 	/**
