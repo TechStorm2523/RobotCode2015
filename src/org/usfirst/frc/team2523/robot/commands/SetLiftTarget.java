@@ -89,11 +89,15 @@ public class SetLiftTarget extends Command
     {
         // set lift speed according to input
         RobotMap.liftPIDControl.setMaxMin(-1 * this.speed, this.speed);
+        
+    	// reset integral value
+    	RobotMap.liftPIDControl.resetIntegral();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
-    {   	
+    {   
+    	// limit lift target
 		if (this.target > RobotMap.MAX_LIFT_HEIGHT) this.target = RobotMap.MAX_LIFT_HEIGHT;
 		else if (this.target < 0.0) this.target = 0.0;
     	

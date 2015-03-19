@@ -34,7 +34,7 @@ public class RobotMap
 	public static final double MAX_LIFT_SPEED = 0.6;  // max speed for auto rising lift
 	public static final double MAX_LIFT_HEIGHT = 60; // max height in inches
 	public static double LIFT_ENCODER_DISTANCE_PER_PULSE = MAX_LIFT_HEIGHT / TICKS_AT_TOP; // theoretical limit - "distance" per pulse of encoder - set so that encoder.getDistance() is MAX_LIFT_HEIGHT when the lift is at the top
-	public static final double LIFT_STOP_TOLERANCE = 0.5; // sets distance off target that lift will stop moving near it's max or min height
+	public static final double LIFT_STOP_TOLERANCE = 0.25; // sets distance off target that lift will stop moving near it's max or min height
 	
 	// CAMERA
 	public static final int CAMERA_WIDTH = 640;

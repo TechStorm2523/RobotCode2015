@@ -115,11 +115,11 @@ public class OI
 	    secondaryBottomRightButton.whileHeld(new MoveLiftByThrottle("DOWN"));
 	    
 	    // TEMP
-		// use the top and bottom left buttons on t`op of the PRIMARY joystick to raise and lower (respectively) the lift at the speed set by the throttle
+		// use the top and bottom left buttons on top of the PRIMARY joystick to raise and lower (respectively) the lift at the speed set by the throttle
 //	    primaryTopRightButton.whileHeld(new MoveLiftByThrottle("UP"));
 //	    primaryBottomRightButton.whileHeld(new MoveLiftByThrottle("DOWN"));
-	    primaryTopRightButton.whileHeld(new RaiseLift(1.0));
-	    primaryBottomRightButton.whileHeld(new LowerLift(1.0));
+	    primaryTopLeftButton.whileHeld(new RaiseLift(1.0));
+	    primaryBottomLeftButton.whileHeld(new LowerLift(1.0));
 	    
 	    // Start the command when the button is released  and let it run the command
 	    // until it is finished as determined by it's isFinished method.
