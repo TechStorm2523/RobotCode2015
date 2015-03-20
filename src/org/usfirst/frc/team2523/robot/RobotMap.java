@@ -121,6 +121,7 @@ public class RobotMap
 	 * PID CONTROL SYSTEMS
 	 */
 	public static PIDControl liftPIDControl = new PIDControl(0.01, 0.005, 0.1, -1.0, 1.0, 0.5);
+	public static PIDControl drivePIDControl = new PIDControl(0.05, 0.005, 0.1, -1.0, 1.0, 0.5);
     // TODO: Values require adjusting!
     //public static PIDControl gyroPIDControl = new PIDControl(0.012, 0.005, 0.01, -1.0, 1.0, 0.5);
 }

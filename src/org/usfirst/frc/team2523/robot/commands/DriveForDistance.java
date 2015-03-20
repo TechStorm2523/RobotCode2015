@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team2523.robot.Robot;
 
 /**
- * Drives the robot in the given direction for the given time !!!!!!!!!!!!!!!!!!!!    POSSIBLE PID CONTROL   ??????????????????????
+ * Drives the robot in the given direction for the given time
  */
 public class DriveForDistance extends Command 
 {

@@ -4,6 +4,7 @@ package org.usfirst.frc.team2523.robot.subsystems;
 import org.usfirst.frc.team2523.robot.Robot;
 import org.usfirst.frc.team2523.robot.RobotMap;
 import org.usfirst.frc.team2523.robot.commands.ArcadeFeederControl;
+import org.usfirst.frc.team2523.robot.commands.SetPOVFeederControl;
 
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -99,7 +100,8 @@ public class FeederWheels extends Subsystem
 		this.setArcadeControl(yValue, zValue);
 	}
 
-    public void initDefaultCommand() {
+    public void initDefaultCommand() 
+    {
         // Set the default command for a subsystem here.
         setDefaultCommand(new ArcadeFeederControl());
     }
