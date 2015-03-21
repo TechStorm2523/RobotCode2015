@@ -28,6 +28,6 @@ public class IncrementLiftLevel extends CommandGroup
     public IncrementLiftLevel(int rate, double speed)
     {
     	// set the lift target at whatever level we are approximately at plus whatever increment was given, and go at the given speed
-    	addSequential(new SetLiftTarget(Robot.lift.getCurrentToteLevel() + rate), speed);
+    	addSequential(new SetLiftTarget(Robot.lift.getCurrentToteLevel() + rate, speed));
     }
 }
