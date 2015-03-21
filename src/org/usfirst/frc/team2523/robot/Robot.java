@@ -62,13 +62,12 @@ public class Robot extends IterativeRobot
     	claw = new Claw();
     	camera = new Camera();
     	dashboard = new Dashboard();
-		oi = new OI();
 		accelerometer = new MainAccelerometer();
 		feederWheels = new FeederWheels();
 		//driveMotorSafety = new MotorSafetySystem(0.1);
 				//RobotMap.frontLeftMotor, RobotMap.rearLeftMotor, RobotMap.frontLeftMotor, RobotMap.rearRightMotor); // set timeout to be 0.1 seconds
 		oi = new OI();
-    	
+		
 		// create the autonomous command chooser
 		autoChooser = new SendableChooser();
 		autoChooser.addDefault("Turn with tote and go", new AutonomousCommandDriveWithTote());
@@ -106,9 +105,8 @@ public class Robot extends IterativeRobot
     	autonomousCommand = (Command) autoChooser.getSelected();
     	autonomousCommand.start();
 
-    	// reset lift encoder and distance per pulse
-    	RobotMap.liftEncoder.reset();
-    	RobotMap.liftEncoder.setDistancePerPulse(RobotMap.LIFT_ENCODER_DISTANCE_PER_PULSE);
+    	// reset lift encoder
+    	lift.resetEncoder();
     }
 
     /**
@@ -137,12 +135,14 @@ public class Robot extends IterativeRobot
      */
     public void disabledInit() 
     {
-    	// reset lift encoder and distance per pulse
-    	RobotMap.liftEncoder.reset();
-    	RobotMap.liftEncoder.setDistancePerPulse(RobotMap.LIFT_ENCODER_DISTANCE_PER_PULSE);
+    	// reset lift encoder
+    	lift.resetEncoder();
     	
     	// reset gyro (because it takes a while)
     	//chassis.resetGyro();
+    	
+    	// reset accelerometer
+    	accelerometer.resetDistance();
     }
 
     /**

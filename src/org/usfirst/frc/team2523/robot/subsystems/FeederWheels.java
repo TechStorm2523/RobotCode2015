@@ -18,7 +18,7 @@ public class FeederWheels extends Subsystem
     // here. Call these from Commands.
 	
 	// motor inversion constants
-	double leftMotorInversion = -1;
+	double leftMotorInversion = 1;
 	double rightMotorInversion = 1;
 	
 	/**
@@ -103,7 +103,7 @@ public class FeederWheels extends Subsystem
     public void initDefaultCommand() 
     {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new ArcadeFeederControl());
+        setDefaultCommand(new ArcadeFeederControl()); // new SetPOVFeederControl());
     }
 }
 

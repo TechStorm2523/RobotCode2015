@@ -28,8 +28,10 @@ public class OI
 	 * Main Driver (Primary) Joystick
 	 */
     Button highSpeed = new JoystickButton(RobotMap.primaryStick, 1);
-    Button manualUp = new JoystickButton(RobotMap.primaryStick, 5);
-    Button manualDown = new JoystickButton(RobotMap.primaryStick, 3);
+    Button feederPull = new JoystickButton(RobotMap.primaryStick, 5);
+    Button feederPush = new JoystickButton(RobotMap.primaryStick, 3);
+//    Button manualUp = new JoystickButton(RobotMap.primaryStick, 5);
+//    Button manualDown = new JoystickButton(RobotMap.primaryStick, 3);
     
 	/*
 	 * Second Driver (Secondary) Joystick
@@ -107,16 +109,19 @@ public class OI
 	     * Run the command while the button is being held down and interrupt it once
 	     * the button is released.
 	     */
-		// raise and lower the lift at the speed set by the throttle
-	    manualUpThrottle.whileHeld(new MoveLiftByThrottle("UP"));
-	    manualDownThrottle.whileHeld(new MoveLiftByThrottle("DOWN"));
+	    // raise and lower the lift at the speed set by the throttle
+	    manualUpThrottle.whenPressed(new MoveLiftByThrottle("UP"));
+	    manualUpThrottle.whenReleased(new MoveLiftByThrottle("STOP"));
+	    manualDownThrottle.whenPressed(new MoveLiftByThrottle("DOWN"));
+	    manualDownThrottle.whenReleased(new MoveLiftByThrottle("STOP"));
 	    
-	    // TEMP
 		// raise and lower the lift manually
-//	    primaryTopRightButton.whileHeld(new MoveLiftByThrottle("UP"));
-//	    primaryBottomRightButton.whileHeld(new MoveLiftByThrottle("DOWN"));
-	    manualUp.whileHeld(new RaiseLift(1.0));
-	    manualDown.whileHeld(new LowerLift(1.0));
+//	    manualUp.whileHeld(new RaiseLift(1.0));
+//	    manualDown.whileHeld(new LowerLift(1.0));
+	    
+	    // push and pull the feeders
+	    feederPush.whileHeld(new SetFeederWheels(true, 1.0));
+	    feederPull.whileHeld(new SetFeederWheels(true, -1.0));
 	    
 	    // Start the command when the button is released  and let it run the command
 	    // until it is finished as determined by it's isFinished method.

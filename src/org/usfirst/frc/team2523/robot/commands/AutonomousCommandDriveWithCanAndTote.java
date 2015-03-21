@@ -18,6 +18,7 @@ public class AutonomousCommandDriveWithCanAndTote extends CommandGroup
     	addSequential(new SetLiftTarget(1, 1.0));
     	
     	// drive to the crate
+        addParallel(new SetFeederWheels(true));
     	addSequential(new DriveForwardUntilCrate(0.25));
     	
     	// wait
@@ -41,6 +42,7 @@ public class AutonomousCommandDriveWithCanAndTote extends CommandGroup
         // drive off
     	addSequential(new DriveForTime(2, 0, 0, -0.25));
     	addSequential(new ResetDistance());  
-    	addSequential(new DriveForDistance(10, 0, 0.5));
+    	addSequential(new DriveForTime(2, 0, 0.5, 0));
+//    	addSequential(new DriveForDistance(10, 0, 0.5));
     }
 }

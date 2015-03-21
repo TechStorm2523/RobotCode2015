@@ -24,6 +24,7 @@ public class AutonomousCommandDriveWithCan extends CommandGroup
     	
     	// drive for 10 feet
     	addSequential(new ResetDistance());  
-    	addSequential(new DriveForDistance(10, 0, 0.5));
+    	addSequential(new DriveForTime(2, 0, 0.5, 0));
+    	//addSequential(new DriveForDistance(10, 0, 0.5));
     }
 }

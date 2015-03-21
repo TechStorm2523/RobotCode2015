@@ -15,6 +15,7 @@ public class AutonomousCommandDriveWithTote extends CommandGroup
     {
     	// close claw
     	addSequential(new CloseClaw());
+    	addSequential(new Wait(1));
     	
     	// raise lift up a couple inches (?)
     	addSequential(new SetLiftTarget(Lift.DRIVE_HEIGHT));
@@ -24,6 +25,6 @@ public class AutonomousCommandDriveWithTote extends CommandGroup
     	
     	// drive for 10 feet
     	addSequential(new ResetDistance());  
-    	addSequential(new DriveForDistance(10, 0, 0.5));
+    	addSequential(new DriveForTime(2, 0, 0.5, 0));
     }
 }

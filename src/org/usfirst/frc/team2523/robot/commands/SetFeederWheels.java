@@ -31,7 +31,7 @@ public class SetFeederWheels extends Command
 	/**
 	 * Sets the feeder wheels to either run at the given speed or stop
 	 * @param toggle Set to true to run, set to false to stop
-	 * @param speed Speed to run at, between -1.0 and 1.0
+	 * @param speed Speed to run at, between -1.0 and 1.0 (positive is push)
 	 */
     public SetFeederWheels(boolean toggle, double speed) 
     {

@@ -26,6 +26,7 @@ public class MoveLiftByThrottle extends Command
         // set multiplier based on string
         if (direction.toLowerCase().equals("up")) this.multiplier = 1.0;
         else if (direction.toLowerCase().equals("down")) this.multiplier = -1.0;
+        else if (direction.toLowerCase().equals("stop")) this.multiplier = 0.0;
         else multiplier = 0.0;
     }
 
@@ -46,8 +47,8 @@ public class MoveLiftByThrottle extends Command
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() 
     {
-    	// Repeatedly called 
-        return true;
+    	// Waits for interrupt
+        return false;
     }
 
     // Called once after isFinished returns true

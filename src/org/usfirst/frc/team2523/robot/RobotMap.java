@@ -30,16 +30,16 @@ public class RobotMap
 	 * CONSTANTS TODO: CHANGE NUMBERS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	 */
 	// LIFT (NOTE: HEIGHTS START AT BOTTOM LIFT HEIGHT)
-	public static final double TICKS_AT_TOP = 10875; // ticks encoder reads at top (determined theoretically)
+	public static final double TICKS_AT_TOP = 13030; // ticks encoder reads at top (determined theoretically)
 	public static final double MAX_LIFT_SPEED = 0.6;  // max speed for auto rising lift
-	public static final double MAX_LIFT_HEIGHT = 60; // max height in inches
+	public static final double MAX_LIFT_HEIGHT = 60.5; // max height in inches
 	public static double LIFT_ENCODER_DISTANCE_PER_PULSE = MAX_LIFT_HEIGHT / TICKS_AT_TOP; // theoretical limit - "distance" per pulse of encoder - set so that encoder.getDistance() is MAX_LIFT_HEIGHT when the lift is at the top
 	public static final double LIFT_STOP_TOLERANCE = 0.25; // sets distance off target that lift will stop moving near it's max or min height
 	
 	// CAMERA
 	public static final int CAMERA_WIDTH = 640;
 	public static final int CAMERA_HEIGHT = 480;
-	public static final int CAMERA_BAR_WIDTH = 5;
+	public static final int CAMERA_BAR_WIDTH = 2;
 	
 	// CHASSIS
 	public static final double JOYSTICK_DEADZONE = 0.05;

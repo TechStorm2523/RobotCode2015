@@ -155,9 +155,9 @@ public class Lift extends Subsystem
     public double getCalibratedLevel(int level)
     {
     	// normalize level value if at extremes, otherwise convert tote height to inches and add some clearance
-    	if (target == 0) return 0;
-    	else if (target == MAX_LEVEL) return MAX_HEIGHT; 
-    	else return target * TOTE_INCREMENT_HEIGHT + TOTE_TOP_CLEARANCE;
+    	if (level == 0) return 0;
+    	else if (level == MAX_LEVEL) return MAX_HEIGHT; 
+    	else return level * TOTE_INCREMENT_HEIGHT + TOTE_TOP_CLEARANCE;
     }
    
 	/**
@@ -170,6 +170,15 @@ public class Lift extends Subsystem
 		if (level < 0) return 0;
 		else if (level > MAX_LEVEL) return (MAX_LEVEL);
 		else return level;
+	}
+	
+	/**
+	 * Reset encoder value and set distance per pulse
+	 */
+	public void resetEncoder()
+	{
+    	RobotMap.liftEncoder.reset();
+    	RobotMap.liftEncoder.setDistancePerPulse(RobotMap.LIFT_ENCODER_DISTANCE_PER_PULSE);
 	}
 	
 	public void initDefaultCommand() 

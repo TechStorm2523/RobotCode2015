@@ -13,9 +13,7 @@ public class AutonomousCommandExperimental extends CommandGroup
 {
     public AutonomousCommandExperimental() 
     {
-
-    	RobotMap.rightFeedMotor.set(0.5);
-    	
+    	addSequential(new SetLiftTarget(3, 1.0));
     	
     }
 }
