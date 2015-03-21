@@ -33,12 +33,14 @@ public class SetDashboard extends Command
 		SmartDashboard.putBoolean(" Lift Calibrating ", Robot.lift.liftCalibrating);
 		SmartDashboard.putNumber(" Actual Lift Height ", Robot.lift.getLiftPosition());
 		SmartDashboard.putNumber(" Drive Distance Y ", Robot.accelerometer.distanceY);
-		SmartDashboard.putBoolean(" High Speed Mode On", Robot.chassis.globalSpeedChange == 1.0);
+		SmartDashboard.putBoolean(" Slow Speed Mode On", Robot.chassis.globalSpeedChange == RobotMap.DEFAULT_SPEED_REDUCTION);
 
 		// DIAGNOSTICS
 		SmartDashboard.putNumber(" Encoder Reading ", RobotMap.liftEncoder.get());
 		SmartDashboard.putNumber(" Encoder Distance ", Robot.lift.getLiftPosition());
 		//SmartDashboard.putNumber(" Direction ", RobotMap.chassisGyro.getAngle());
+		SmartDashboard.putNumber(" Axis value ", RobotMap.primaryStick.getPOV());
+		SmartDashboard.putBoolean(" Limit Switches Overridden ", Robot.lift.limitSwitchOverride);
     }
 
     // Make this return true when this Command no longer needs to run execute()

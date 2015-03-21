@@ -12,11 +12,9 @@ public class AutonomousCommandSingleTote extends CommandGroup
 {
     public AutonomousCommandSingleTote() 
     {
-    	//addSequential(new CalibrateLift());
+    	addSequential(new CalibrateLift());
     	
-    	addSequential(new ResetDistance());  
-    	addSequential(new DriveForDistance(10, 0, 0.5));
-    	
-    	//addSequential(new DriveForTime(2, 0, 0.5, 0));
+    	addSequential(new ResetDistance());      	
+    	addSequential(new DriveForTime(2, 0, 0.5, 0));
     }
 }

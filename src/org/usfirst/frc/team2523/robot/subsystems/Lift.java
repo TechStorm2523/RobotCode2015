@@ -26,6 +26,9 @@ public class Lift extends Subsystem
 	
 	// define target variable for lift to pursue
 	public double target = 0.0;
+	
+	// define override variable for stopping
+	public boolean limitSwitchOverride = false; 
 		
 	/**
 	 * Method to determine if the lift is touching either the top or bottom limit switches, a.k.a. is at it's limits.
@@ -71,13 +74,13 @@ public class Lift extends Subsystem
 	{
 		// (speed is opposite of motor)
 		// only allow upward movement if not at the top
-		if (-1 * speed > 0 && !this.isAtUpperLimit())
+		if ((-1 * speed > 0 && !this.isAtUpperLimit()) || limitSwitchOverride)
 		{
 			// set liftMotor to given speed (invert motor)
 			RobotMap.liftMotor.set(-1 * speed);
 		}
 		// allow only downward movement if not at the bottom
-		else if (-1 * speed < 0 && !this.isAtLowerLimit())
+		else if ((-1 * speed < 0 && !this.isAtLowerLimit()) || limitSwitchOverride)
 		{
 			// set liftMotor to given speed (invert motor)
 			RobotMap.liftMotor.set(-1 * speed);

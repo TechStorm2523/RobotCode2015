@@ -103,7 +103,7 @@ public class FeederWheels extends Subsystem
     public void initDefaultCommand() 
     {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new ArcadeFeederControl()); // new SetPOVFeederControl());
+        setDefaultCommand(new SetPOVFeederControl()); //ArcadeFeederControl()); //
     }
 }
 

@@ -29,7 +29,7 @@ public class SetPOVFeederControl extends Command
 	 * Sets the feeder wheels to run based off POV
 	 * @param speed Speed to run at, between -1.0 and 1.0
 	 */
-    public SetPOVFeederControl( double speed) 
+    public SetPOVFeederControl(double speed) 
     {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.feederWheels);
@@ -43,9 +43,15 @@ public class SetPOVFeederControl extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
+    	// get value from joystick
+    	int povValue = RobotMap.primaryStick.getPOV();
+    	
+    	// relate to movement based on sin and cos
+    	double forwardValue = Math.sin(povValue * 0.0174532925);
+    	double rotationValue = Math.cos(povValue * 0.0174532925);
+    	
     	// run at speed according to POV axis (4 and 5)
-    	Robot.feederWheels.setArcadeControl(RobotMap.primaryStick.getRawAxis(4), 
-    										RobotMap.primaryStick.getRawAxis(5));
+    	Robot.feederWheels.setArcadeControl(forwardValue, rotationValue);
     }
 
     // Make this return true when this Command no longer needs to run execute()

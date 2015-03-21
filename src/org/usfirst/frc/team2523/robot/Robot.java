@@ -13,6 +13,7 @@ import org.usfirst.frc.team2523.robot.commands.AutonomousCommandDriveWithCan;
 import org.usfirst.frc.team2523.robot.commands.AutonomousCommandExperimental;
 import org.usfirst.frc.team2523.robot.commands.AutonomousCommandDriveWithCanAndTote;
 import org.usfirst.frc.team2523.robot.commands.AutonomousCommandDriveWithTote;
+import org.usfirst.frc.team2523.robot.commands.AutonomousCommandNULL;
 import org.usfirst.frc.team2523.robot.commands.AutonomousCommandSingleTote;
 import org.usfirst.frc.team2523.robot.subsystems.Camera;
 import org.usfirst.frc.team2523.robot.subsystems.Chassis;
@@ -64,7 +65,7 @@ public class Robot extends IterativeRobot
     	dashboard = new Dashboard();
 		accelerometer = new MainAccelerometer();
 		feederWheels = new FeederWheels();
-		//driveMotorSafety = new MotorSafetySystem(0.1);
+		//driveMotorSafety = new MotorSafetySystem(0.1); 
 				//RobotMap.frontLeftMotor, RobotMap.rearLeftMotor, RobotMap.frontLeftMotor, RobotMap.rearRightMotor); // set timeout to be 0.1 seconds
 		oi = new OI();
 		
@@ -76,6 +77,7 @@ public class Robot extends IterativeRobot
 		autoChooser.addObject("Turn with can, get crate, and go", new AutonomousCommandDriveWithCanAndTote());
 		autoChooser.addObject("Grab all three crates and go, assuming no can", new AutonomousCommandAllTotes());
 		autoChooser.addObject("Experimental Autonomous", new AutonomousCommandExperimental());
+		autoChooser.addObject("Do nothing", new AutonomousCommandNULL());
 		
 		// put option on dashboard
 		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
@@ -107,6 +109,9 @@ public class Robot extends IterativeRobot
 
     	// reset lift encoder
     	lift.resetEncoder();
+    	
+    	// make sure limit switches are used
+    	lift.limitSwitchOverride = false;
     }
 
     /**
@@ -125,8 +130,11 @@ public class Robot extends IterativeRobot
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
         
-        // make sure drive speed is at default
-    	chassis.setDriveSpeed(RobotMap.DEFAULT_SPEED_REDUCTION);
+        // make sure drive speed is at full
+    	chassis.setDriveSpeed(1.0);
+    	
+    	// make sure limit switches are used
+    	lift.limitSwitchOverride = false;
     }
 
     /**
@@ -143,6 +151,9 @@ public class Robot extends IterativeRobot
     	
     	// reset accelerometer
     	accelerometer.resetDistance();
+    	
+    	// make sure limit switches are used
+    	lift.limitSwitchOverride = false;
     }
 
     /**

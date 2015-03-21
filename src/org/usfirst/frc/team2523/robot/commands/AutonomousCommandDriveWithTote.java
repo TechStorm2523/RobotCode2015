@@ -13,6 +13,8 @@ public class AutonomousCommandDriveWithTote extends CommandGroup
 {
     public AutonomousCommandDriveWithTote() 
     {
+    	addSequential(new CalibrateLift());
+    	
     	// close claw
     	addSequential(new CloseClaw());
     	addSequential(new Wait(1));

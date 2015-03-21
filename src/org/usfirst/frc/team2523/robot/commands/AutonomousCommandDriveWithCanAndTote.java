@@ -12,7 +12,9 @@ import org.usfirst.frc.team2523.robot.subsystems.Lift;
 public class AutonomousCommandDriveWithCanAndTote extends CommandGroup
 {
     public AutonomousCommandDriveWithCanAndTote() 
-    {   	
+    {
+        addSequential(new CalibrateLift());
+    	
     	// close on the bin and raise it up one
     	addSequential(new CloseClaw());
     	addSequential(new SetLiftTarget(1, 1.0));

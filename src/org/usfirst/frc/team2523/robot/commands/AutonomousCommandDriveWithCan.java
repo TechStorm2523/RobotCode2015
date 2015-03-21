@@ -13,6 +13,8 @@ public class AutonomousCommandDriveWithCan extends CommandGroup
 {
     public AutonomousCommandDriveWithCan() 
     {
+        addSequential(new CalibrateLift());
+    	
     	// close claw
     	addSequential(new CloseClaw());
     	

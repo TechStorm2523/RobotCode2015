@@ -31,6 +31,9 @@ public class Chassis extends Subsystem
     public double rearLeftDistance = 0;
     public double rearRightDistance = 0; 
     
+    // constantly changing forward value
+    public double forwardValue;
+    
 //	// set constant(s)
 //	public final double MOTOR_TO_RPM_FACTOR = 0.0; // set so that the motor power input from -1.0 to 1.0 corresponds to shaft RPMS
 //	private final double MOTOR_COMPENSATION_THRESHOLD = 0.05; //percentage above (or below) one after which we should compensate the motor's power
@@ -52,7 +55,7 @@ public class Chassis extends Subsystem
 		// get joystick values
 		double xValue = this.getExpodentialValue(RobotMap.primaryStick.getX() * this.globalSpeedChange);
 		double yValue = this.getExpodentialValue(RobotMap.primaryStick.getY() * this.globalSpeedChange);
-		double zValue = this.getExpodentialValue(RobotMap.primaryStick.getZ() / 2 * this.globalSpeedChange);
+		double zValue = this.getExpodentialValue(RobotMap.primaryStick.getZ() / 2);
 		
 		// cutoff near zero
 		if (Math.abs(xValue) < RobotMap.JOYSTICK_DEADZONE) xValue = 0;
@@ -61,7 +64,7 @@ public class Chassis extends Subsystem
 		
 		
     	// Use the joystick X axis for lateral movement, Y axis for forward movement, and Z axis for rotation. (reverse for joystick)
-		this.setMecanumDrive(xValue, -1.0 * yValue, zValue);
+		this.setMecanumDrive(xValue, -1.0 * yValue, zValue);	
 	}
 
 	
@@ -88,6 +91,9 @@ public class Chassis extends Subsystem
         // set Mecanum Drive according to parameters, ignoring gyro option (invert ySpeed because function is oriented for joysticks)
 		RobotMap.robotDrive.mecanumDrive_Cartesian(xSpeed, -1.0 * ySpeed, rotationSpeed, 0); 
 		//this.MecanumDrive(xSpeed, -1.0 * ySpeed, rotationSpeed);
+		
+		// set forward value in subsystem
+		this.forwardValue = ySpeed;
 	}
 
    

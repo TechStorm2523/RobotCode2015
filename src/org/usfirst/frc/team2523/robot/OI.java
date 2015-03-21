@@ -5,10 +5,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team2523.robot.commands.CalibrateLift;
 import org.usfirst.frc.team2523.robot.commands.CloseClaw;
+import org.usfirst.frc.team2523.robot.commands.FeedersPerDriving;
 import org.usfirst.frc.team2523.robot.commands.IncrementLiftLevel;
 import org.usfirst.frc.team2523.robot.commands.LowerLift;
 import org.usfirst.frc.team2523.robot.commands.MoveLiftByThrottle;
 import org.usfirst.frc.team2523.robot.commands.OpenClaw;
+import org.usfirst.frc.team2523.robot.commands.OverrideLimits;
 import org.usfirst.frc.team2523.robot.commands.PickUpNewCrate;
 import org.usfirst.frc.team2523.robot.commands.RaiseLift;
 import org.usfirst.frc.team2523.robot.commands.SetDriveSpeed;
@@ -27,7 +29,7 @@ public class OI
 	/*
 	 * Main Driver (Primary) Joystick
 	 */
-    Button highSpeed = new JoystickButton(RobotMap.primaryStick, 1);
+    Button slowSpeed = new JoystickButton(RobotMap.primaryStick, 1);
     Button feederPull = new JoystickButton(RobotMap.primaryStick, 5);
     Button feederPush = new JoystickButton(RobotMap.primaryStick, 3);
 //    Button manualUp = new JoystickButton(RobotMap.primaryStick, 5);
@@ -38,15 +40,17 @@ public class OI
 	 */
     Button closeClaw = new JoystickButton(RobotMap.secondaryStick, 1);
     Button openClaw = new JoystickButton(RobotMap.secondaryStick, 2);
-    Button incrementUp = new JoystickButton(RobotMap.secondaryStick, 5);
-    Button incrementDown = new JoystickButton(RobotMap.secondaryStick, 3);
-    Button manualUpThrottle = new JoystickButton(RobotMap.secondaryStick, 6);
-    Button manualDownThrottle = new JoystickButton(RobotMap.secondaryStick, 4);
+    Button incrementUp = new JoystickButton(RobotMap.secondaryStick, 6);
+    Button incrementDown = new JoystickButton(RobotMap.secondaryStick, 4);
+    Button manualUpThrottle = new JoystickButton(RobotMap.secondaryStick, 5);
+    Button manualDownThrottle = new JoystickButton(RobotMap.secondaryStick, 3);
     Button calibrateLift = new JoystickButton(RobotMap.secondaryStick, 7);
     Button pickUpNewCrate1 = new JoystickButton(RobotMap.secondaryStick, 9);
     Button pickUpNewCrate2 = new JoystickButton(RobotMap.secondaryStick, 10);
     Button moveToBottom = new JoystickButton(RobotMap.secondaryStick, 11);
     Button moveToTop = new JoystickButton(RobotMap.secondaryStick, 12);
+    Button overrideLimits = new JoystickButton(RobotMap.secondaryStick, 8);
+    Button feedersPerDriving = new JoystickButton(RobotMap.secondaryStick, 2);
     
     // There are a few additional built in buttons you can use. Additionally,
     // by subclassing Button you can create custom triggers and bind those to
@@ -83,8 +87,10 @@ public class OI
 	    pickUpNewCrate2.whenPressed(new PickUpNewCrate(2));
 		
 	    // toggle high speed mode on the chassis
-	    highSpeed.whenPressed(new SetDriveSpeed(1.0));
-	    highSpeed.whenReleased(new SetDriveSpeed(RobotMap.DEFAULT_SPEED_REDUCTION));
+	    slowSpeed.whenPressed(new SetDriveSpeed(RobotMap.DEFAULT_SPEED_REDUCTION));
+	    slowSpeed.whenReleased(new SetDriveSpeed(1.0));
+	    
+	    overrideLimits.whenPressed(new OverrideLimits(true));
     	
 //    	// use the trigger and thumb buttons to control the closing and opening of the claw, respectively
 //		primaryTriggerButton.whenPressed(new CloseClaw());
@@ -122,6 +128,10 @@ public class OI
 	    // push and pull the feeders
 	    feederPush.whileHeld(new SetFeederWheels(true, 1.0));
 	    feederPull.whileHeld(new SetFeederWheels(true, -1.0));
+	    
+	    // use feeders correlated with driving
+//	    feedersPerDriving.whenPressed(new FeedersPerDriving(true));
+//	    feedersPerDriving.whenReleased(new FeedersPerDriving(false));
 	    
 	    // Start the command when the button is released  and let it run the command
 	    // until it is finished as determined by it's isFinished method.
