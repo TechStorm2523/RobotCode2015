@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2523.robot.commands.AutonomousCommandAllTotes;
+import org.usfirst.frc.team2523.robot.commands.AutonomousCommandAlliance;
 import org.usfirst.frc.team2523.robot.commands.AutonomousCommandDriveWithCan;
 import org.usfirst.frc.team2523.robot.commands.AutonomousCommandExperimental;
 import org.usfirst.frc.team2523.robot.commands.AutonomousCommandDriveWithCanAndTote;
@@ -71,7 +72,8 @@ public class Robot extends IterativeRobot
 		
 		// create the autonomous command chooser
 		autoChooser = new SendableChooser();
-		autoChooser.addDefault("Turn with tote and go", new AutonomousCommandDriveWithTote());
+		autoChooser.addDefault("Alliance Auto - forward", new AutonomousCommandAlliance());
+		autoChooser.addObject("Turn with tote and go", new AutonomousCommandDriveWithTote());
 		autoChooser.addObject("Just go straight", new AutonomousCommandSingleTote());
 		autoChooser.addObject("Turn with can and go", new AutonomousCommandDriveWithCan());
 		autoChooser.addObject("Turn with can, get crate, and go", new AutonomousCommandDriveWithCanAndTote());

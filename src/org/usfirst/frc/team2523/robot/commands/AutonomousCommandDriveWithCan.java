@@ -19,7 +19,7 @@ public class AutonomousCommandDriveWithCan extends CommandGroup
     	addSequential(new CloseClaw());
     	
     	// raise lift up a couple inches (?)
-    	addSequential(new SetLiftTarget(Lift.DRIVE_HEIGHT));
+    	addSequential(new SetLiftTarget(Lift.DRIVE_HEIGHT, 1.0));
     	
     	// turn about 90 degrees THE OPPOSITE DIRECTION
     	addSequential(new DriveForTime(2, 0, 0, -0.25));

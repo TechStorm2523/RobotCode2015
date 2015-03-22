@@ -12,7 +12,7 @@ public class Lift extends Subsystem
 {
 	// define position constants TODO: ADD MORE AND CHECK INCH CONVERSIONS!!!!!!!!!!!!!!!!!!!!!
 	public static final double TOTE_INCREMENT_HEIGHT = 12; // actual height of a tote
-	public static final double TOTE_TOP_CLEARANCE = 1;// height to move tote above "theoretical" (perfectly on top) height
+	public static final double TOTE_TOP_CLEARANCE = 1.5;// height to move tote above "theoretical" (perfectly on top) height
 	public static final double PICK_UP_HEIGHT = 0.0;  // height to pick up crate from
 	public static final double DRIVE_HEIGHT = 5; // height to drive with stack of crates
 	public static final double MAX_HEIGHT = RobotMap.MAX_LIFT_HEIGHT; // redirect value here as well

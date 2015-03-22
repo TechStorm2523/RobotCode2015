@@ -20,7 +20,7 @@ public class AutonomousCommandDriveWithTote extends CommandGroup
     	addSequential(new Wait(1));
     	
     	// raise lift up a couple inches (?)
-    	addSequential(new SetLiftTarget(Lift.DRIVE_HEIGHT));
+    	addSequential(new SetLiftTarget(Lift.DRIVE_HEIGHT, 1.0));
     	
     	// turn about 90 degrees
     	addSequential(new DriveForTime(2, 0, 0, 0.25));
