@@ -10,9 +10,9 @@ import org.usfirst.frc.team2523.robot.RobotMap;
 /**
  *
  */
-public class SetDashboard extends Command 
+public class SetDashboardold extends Command 
 {
-    public SetDashboard() 
+    public SetDashboardold() 
     {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.dashboard);

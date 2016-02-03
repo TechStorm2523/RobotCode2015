@@ -1,0 +1,76 @@
+<xml version="1.0">
+<dashboard>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.WebcamViewerExtension">
+		<location x="0" y="0"/>
+		<width>645</width>
+		<height>490</height>
+	</static-widget>
+	<widget field=" Limit Switches Overridden " type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="904" y="246"/>
+		<width>186</width>
+		<height>35</height>
+	</widget>
+	<widget field=" Axis value " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="695" y="340"/>
+	</widget>
+	<widget field=" Slow Speed Mode On" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="904" y="203"/>
+		<width>162</width>
+		<height>38</height>
+	</widget>
+	<widget field=" Drive Distance Y " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="667" y="316"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="1082" y="84"/>
+		<width>130</width>
+		<property name="Text" value="Autonomous Commands"/>
+	</static-widget>
+	<widget field="Autonomous Mode Chooser" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="1087" y="90"/>
+	</widget>
+	<widget field=" Crate Present " type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="904" y="163"/>
+		<width>130</width>
+		<height>36</height>
+	</widget>
+	<widget field=" Actual Lift Height " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
+		<location x="905" y="292"/>
+		<width>147</width>
+		<height>43</height>
+	</widget>
+	<widget field=" Encoder Distance " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="660" y="266"/>
+	</widget>
+	<widget field=" Encoder Reading " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="662" y="292"/>
+	</widget>
+	<widget field=" Lift Calibrating " type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="904" y="122"/>
+		<width>133</width>
+		<height>35</height>
+	</widget>
+	<widget field=" Claw Closed " type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="904" y="83"/>
+		<width>122</width>
+		<height>34</height>
+	</widget>
+	<widget field=" Lift Height " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.ProgressBar">
+		<location x="650" y="39"/>
+		<width>712</width>
+		<height>37</height>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
+		<location x="648" y="2"/>
+		<width>716</width>
+	</static-widget>
+	<widget field=" Lift Speed " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="651" y="74"/>
+		<height>166</height>
+		<property name="Upper Limit" value="1.0"/>
+		<property name="Tick Interval" value="0.1"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>

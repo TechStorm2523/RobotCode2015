@@ -13,7 +13,10 @@ public class AutonomousCommandExperimental extends CommandGroup
 {
     public AutonomousCommandExperimental() 
     {
+    	addSequential(new CalibrateLift());
     	addSequential(new SetLiftTarget(3, 1.0));
+    	//addSequential(new CloseCLaw());
+    	addSequential(new OpenClaw());
     	
     }
 }

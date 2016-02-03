@@ -1,7 +1,7 @@
 
 package org.usfirst.frc.team2523.robot.subsystems;
 
-import org.usfirst.frc.team2523.robot.commands.SetDashboard;
+import org.usfirst.frc.team2523.robot.commands.SetDashboardold;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -15,7 +15,7 @@ public class Dashboard extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new SetDashboard());
+        setDefaultCommand(new SetDashboardold());
     }
 }
 

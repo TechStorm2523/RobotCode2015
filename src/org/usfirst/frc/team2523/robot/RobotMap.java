@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Jaguar;
@@ -24,6 +23,7 @@ import edu.wpi.first.wpilibj.interfaces.Accelerometer;
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
+@SuppressWarnings("unused")
 public class RobotMap 
 {
 	/**
